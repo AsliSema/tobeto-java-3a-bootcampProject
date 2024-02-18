@@ -3,6 +3,7 @@ package com.tobeto.bootcampProject.webApi.controllers;
 
 import com.tobeto.bootcampProject.business.abstracts.UserService;
 import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
+import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
@@ -31,6 +32,12 @@ public class UserController {
     @GetMapping("/{id}")
     public GetUserByIdResponse getUser(@PathVariable int id){
         return userService.getUserById(id);
+    }
+
+    @PutMapping
+    public UpdateUserRequest updateUser(@RequestBody UpdateUserRequest updateUserRequest){
+        UpdateUserRequest result = userService.updateUser(updateUserRequest);
+        return result;
     }
 
 

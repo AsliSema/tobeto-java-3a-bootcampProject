@@ -2,6 +2,7 @@ package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.UserService;
 import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
+import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
@@ -48,5 +49,18 @@ public class UserManager implements UserService {
         GetUserByIdResponse response = mapperService.forResponse().map(user, GetUserByIdResponse.class);
         return response;
     }
+
+    @Override
+    public UpdateUserRequest updateUser(UpdateUserRequest updateUserRequest) {
+        User user = mapperService.forRequest().map(updateUserRequest, User.class);
+        User updatedUser = userRepository.save(user);
+
+        UpdateUserRequest updatedUserRequest = mapperService.forRequest().map(updatedUser, UpdateUserRequest.class);
+
+        return updatedUserRequest;
+    }
+
+
+
 
 }
