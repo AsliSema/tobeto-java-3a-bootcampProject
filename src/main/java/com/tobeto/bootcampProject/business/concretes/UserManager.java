@@ -2,6 +2,7 @@ package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.UserService;
 import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
+import com.tobeto.bootcampProject.business.requests.delete.user.DeleteUserRequest;
 import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
@@ -60,7 +61,11 @@ public class UserManager implements UserService {
         return updatedUserRequest;
     }
 
-
+    @Override
+    public DeleteUserRequest deleteUser(int id) {
+        userRepository.deleteById(id);
+        return null;
+    }
 
 
 }
