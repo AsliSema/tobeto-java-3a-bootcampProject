@@ -5,6 +5,7 @@ import com.tobeto.bootcampProject.business.requests.delete.user.DeleteUserReques
 import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
+import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 
 import java.util.List;
@@ -19,6 +20,8 @@ public interface UserService {
     UpdateUserRequest updateUser(UpdateUserRequest updateUserRequest);
 
     DeleteUserRequest deleteUser(int id);
+
+    GetUserByEmailResponse getUserByEmail(String email);
 
 
 }

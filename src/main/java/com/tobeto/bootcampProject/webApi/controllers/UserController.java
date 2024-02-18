@@ -7,6 +7,7 @@ import com.tobeto.bootcampProject.business.requests.delete.user.DeleteUserReques
 import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
+import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,11 @@ public class UserController {
     @DeleteMapping("/{id}")
     public DeleteUserRequest deleteUser(@PathVariable int id){
         return userService.deleteUser(id);
+    }
+
+    @GetMapping("/getUserByEmail/{email}")
+    public GetUserByEmailResponse getUserByEmail(@PathVariable String email){
+        return userService.getUserByEmail(email);
     }
 
 

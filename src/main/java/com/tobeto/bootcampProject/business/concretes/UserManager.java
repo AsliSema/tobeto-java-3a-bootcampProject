@@ -6,17 +6,16 @@ import com.tobeto.bootcampProject.business.requests.delete.user.DeleteUserReques
 import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
+import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.dataAccess.abstracts.UserRepository;
 import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +65,14 @@ public class UserManager implements UserService {
         userRepository.deleteById(id);
         return null;
     }
+
+    @Override
+    public GetUserByEmailResponse getUserByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        GetUserByEmailResponse response = mapperService.forResponse().map(user, GetUserByEmailResponse.class);
+        return response;
+    }
+
 
 
 }
