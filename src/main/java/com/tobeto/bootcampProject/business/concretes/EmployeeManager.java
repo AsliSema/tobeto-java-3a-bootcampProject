@@ -2,24 +2,16 @@ package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
-import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampProject.business.responses.create.employee.CreateEmployeeResponse;
-import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
 import com.tobeto.bootcampProject.business.responses.delete.employee.DeleteEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
-import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
-import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
-import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.dataAccess.abstracts.EmployeeRepository;
-import com.tobeto.bootcampProject.dataAccess.abstracts.UserRepository;
 import com.tobeto.bootcampProject.entities.Employee;
-import com.tobeto.bootcampProject.entities.Instructor;
-import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

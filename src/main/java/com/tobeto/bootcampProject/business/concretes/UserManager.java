@@ -1,10 +1,7 @@
 package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.UserService;
-import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
-import com.tobeto.bootcampProject.business.requests.delete.user.DeleteUserRequest;
-import com.tobeto.bootcampProject.business.requests.update.user.UpdateUserRequest;
-import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
+import com.tobeto.bootcampProject.business.responses.delete.user.DeleteUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
@@ -24,15 +21,6 @@ public class UserManager implements UserService {
 
     private UserRepository userRepository;
     private ModelMapperService mapperService;
-    @Override
-    public CreateUserResponse add(CreateUserRequest request) {
-        User user = this.mapperService.forRequest().map(request, User.class);
-        user.setCreatedDate(LocalDateTime.now());
-        userRepository.save(user);
-
-        CreateUserResponse response = this.mapperService.forResponse().map(user, CreateUserResponse.class);
-        return response;
-    }
 
     @Override
     public List<GetAllUserResponse> getAll() {
@@ -50,20 +38,12 @@ public class UserManager implements UserService {
         return response;
     }
 
-    @Override
-    public UpdateUserRequest updateUser(UpdateUserRequest updateUserRequest) {
-        User user = mapperService.forRequest().map(updateUserRequest, User.class);
-        User updatedUser = userRepository.save(user);
-
-        UpdateUserRequest updatedUserRequest = mapperService.forRequest().map(updatedUser, UpdateUserRequest.class);
-
-        return updatedUserRequest;
-    }
 
     @Override
-    public DeleteUserRequest deleteUser(int id) {
+    public DeleteUserResponse deleteUser(int id) {
         userRepository.deleteById(id);
-        return null;
+        DeleteUserResponse response = new DeleteUserResponse("User Deleted");
+        return response;
     }
 
     @Override
