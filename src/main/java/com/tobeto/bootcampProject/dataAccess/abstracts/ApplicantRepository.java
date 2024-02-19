@@ -1,5 +1,6 @@
 package com.tobeto.bootcampProject.dataAccess.abstracts;
 
+import com.tobeto.bootcampProject.business.requests.update.applicant.UpdateApplicantRequest;
 import com.tobeto.bootcampProject.entities.Applicant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
