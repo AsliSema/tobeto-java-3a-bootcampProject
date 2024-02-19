@@ -6,6 +6,7 @@ import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInst
 import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.intructor.CreateInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
+import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.dataAccess.abstracts.InstructorRepository;
 import com.tobeto.bootcampProject.entities.Instructor;
@@ -15,6 +16,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -29,6 +32,13 @@ public class InstructorManager implements InstructorService {
         instructorRepository.save(instructor);
 
         CreateInstructorResponse response = mapperService.forResponse().map(instructor, CreateInstructorResponse.class);
+        return response;
+    }
+
+    @Override
+    public List<GetAllInstructorResponse> getAllInstructor() {
+        List<Instructor> instructors = instructorRepository.findAll();
+        List<GetAllInstructorResponse> response = instructors.stream().map(instructor -> mapperService.forResponse().map(instructor, GetAllInstructorResponse.class)).collect(Collectors.toList());
         return response;
     }
 

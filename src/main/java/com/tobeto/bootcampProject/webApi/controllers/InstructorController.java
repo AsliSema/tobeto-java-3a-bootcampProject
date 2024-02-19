@@ -3,11 +3,11 @@ package com.tobeto.bootcampProject.webApi.controllers;
 import com.tobeto.bootcampProject.business.abstracts.InstructorService;
 import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInstructorRequest;
 import com.tobeto.bootcampProject.business.responses.create.intructor.CreateInstructorResponse;
+import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/instructors")
@@ -18,6 +18,11 @@ public class InstructorController {
     @PostMapping
     public CreateInstructorResponse createInstructor(@RequestBody CreateInstructorRequest request){
         return instructorService.createInstructor(request);
+    }
+
+    @GetMapping
+    public List<GetAllInstructorResponse> getAllInstructors(){
+        return instructorService.getAllInstructor();
     }
 
 }
