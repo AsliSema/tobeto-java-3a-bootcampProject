@@ -9,7 +9,9 @@ import com.tobeto.bootcampProject.business.responses.create.user.CreateUserRespo
 import com.tobeto.bootcampProject.business.responses.delete.employee.DeleteEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
+import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
+import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
@@ -82,6 +84,17 @@ public class EmployeeManager implements EmployeeService {
     public DeleteEmployeeResponse deleteEmployeeById(int id) {
         employeeRepository.deleteById(id);
         DeleteEmployeeResponse response = new DeleteEmployeeResponse("Employee Deleted");
+        return response;
+    }
+
+    @Override
+    public List <GetEmployeeByPositionResponse> getEmployeeByPosition(String position) {
+        List<Employee> employees = employeeRepository.findAllByPosition(position);
+
+        List<GetEmployeeByPositionResponse> response = employees.stream()
+                .map(employee -> mapperService.forResponse().map(employee, GetEmployeeByPositionResponse.class))
+                .collect(Collectors.toList());
+
         return response;
     }
 
