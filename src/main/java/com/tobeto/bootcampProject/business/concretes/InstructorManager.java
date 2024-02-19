@@ -7,6 +7,8 @@ import com.tobeto.bootcampProject.business.requests.create.user.CreateUserReques
 import com.tobeto.bootcampProject.business.requests.update.instructor.UpdateInstructorRequest;
 import com.tobeto.bootcampProject.business.responses.create.intructor.CreateInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
+import com.tobeto.bootcampProject.business.responses.delete.employee.DeleteEmployeeResponse;
+import com.tobeto.bootcampProject.business.responses.delete.instructor.DeleteInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
@@ -74,6 +76,13 @@ public class InstructorManager implements InstructorService {
         instructorRepository.save(instructor);
         UpdateInstructorResponse response = mapperService.forResponse().map(instructor, UpdateInstructorResponse.class);
 
+        return response;
+    }
+
+    @Override
+    public DeleteInstructorResponse deleteInstructorById(int id) {
+        instructorRepository.deleteById(id);
+        DeleteInstructorResponse response = new DeleteInstructorResponse("Instructor Deleted");
         return response;
     }
 
