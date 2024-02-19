@@ -6,6 +6,7 @@ import com.tobeto.bootcampProject.business.requests.create.user.CreateUserReques
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampProject.business.responses.create.employee.CreateEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
+import com.tobeto.bootcampProject.business.responses.delete.employee.DeleteEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
@@ -74,6 +75,13 @@ public class EmployeeManager implements EmployeeService {
         employeeRepository.save(employee);
         UpdateEmployeeResponse response = mapperService.forResponse().map(employee, UpdateEmployeeResponse.class);
 
+        return response;
+    }
+
+    @Override
+    public DeleteEmployeeResponse deleteEmployeeById(int id) {
+        employeeRepository.deleteById(id);
+        DeleteEmployeeResponse response = new DeleteEmployeeResponse("Employee Deleted");
         return response;
     }
 
