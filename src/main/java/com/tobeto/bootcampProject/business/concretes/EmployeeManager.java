@@ -5,7 +5,9 @@ import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmploy
 import com.tobeto.bootcampProject.business.requests.create.user.CreateUserRequest;
 import com.tobeto.bootcampProject.business.responses.create.employee.CreateEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.create.user.CreateUserResponse;
+import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
+import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.dataAccess.abstracts.EmployeeRepository;
 import com.tobeto.bootcampProject.dataAccess.abstracts.UserRepository;
@@ -15,6 +17,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -22,6 +26,15 @@ public class EmployeeManager implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
     private ModelMapperService mapperService;
+
+    @Override
+    public List<GetAllEmployeeResponse> getAllEmployee() {
+        List <Employee> employees = employeeRepository.findAll();
+        List <GetAllEmployeeResponse> response = employees.stream().map(employee -> mapperService.
+                forResponse().map(employee, GetAllEmployeeResponse.class)).collect(Collectors.toList());
+
+        return response;
+    }
     @Override
     public GetEmployeeByIdResponse getEmployeeById(int id) {
         Employee employee = employeeRepository.findById(id).orElseThrow();

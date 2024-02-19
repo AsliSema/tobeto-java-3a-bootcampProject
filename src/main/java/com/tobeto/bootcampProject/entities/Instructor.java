@@ -2,6 +2,7 @@ package com.tobeto.bootcampProject.entities;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "instructors")
 @EqualsAndHashCode(callSuper = true)
+@PrimaryKeyJoinColumn(name = "id")
 public class Instructor extends User{
     private String companyName;
 }
