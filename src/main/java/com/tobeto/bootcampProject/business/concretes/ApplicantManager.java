@@ -3,6 +3,7 @@ package com.tobeto.bootcampProject.business.concretes;
 import com.tobeto.bootcampProject.business.abstracts.ApplicantService;
 import com.tobeto.bootcampProject.business.requests.create.applicant.CreateApplicantRequest;
 import com.tobeto.bootcampProject.business.responses.create.applicant.CreateApplicantResponse;
+import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicantRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
@@ -26,6 +27,13 @@ public class ApplicantManager implements ApplicantService {
 
         CreateApplicantResponse response = mapperService.forResponse().map(applicant, CreateApplicantResponse.class);
 
+        return response;
+    }
+
+    @Override
+    public GetApplicantByIdResponse getApplicantById(int id) {
+        Applicant applicant = applicantRepository.findById(id).orElseThrow();
+        GetApplicantByIdResponse response = mapperService.forResponse().map(applicant, GetApplicantByIdResponse.class);
         return response;
     }
 }
