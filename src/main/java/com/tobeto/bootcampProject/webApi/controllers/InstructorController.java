@@ -2,9 +2,11 @@ package com.tobeto.bootcampProject.webApi.controllers;
 
 import com.tobeto.bootcampProject.business.abstracts.InstructorService;
 import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInstructorRequest;
+import com.tobeto.bootcampProject.business.requests.update.instructor.UpdateInstructorRequest;
 import com.tobeto.bootcampProject.business.responses.create.intructor.CreateInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
+import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,11 @@ public class InstructorController {
     @GetMapping("/{id}")
     public GetInstructorByIdResponse getInstructorById(@PathVariable int id){
         return instructorService.getInstructor(id);
+    }
+
+    @PutMapping("/{id}")
+    public UpdateInstructorResponse updateInstructor(@RequestBody UpdateInstructorRequest request, @PathVariable int id){
+        return instructorService.updateInstructorById(request, id);
     }
 
 }
