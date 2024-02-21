@@ -10,7 +10,10 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByI
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
+import com.tobeto.bootcampProject.core.entities.BaseEntity;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,28 +21,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/employees")
 @AllArgsConstructor
-public class EmployeeController {
+public class EmployeeController extends BaseController{
     private EmployeeService employeeService;
 
     @GetMapping("/{id}")
-    public GetEmployeeByIdResponse getEmployeeById(@PathVariable int id){
-        return employeeService.getEmployeeById(id);
+    public ResponseEntity<?> getEmployeeById(@PathVariable int id){
+        return handleDataResult(employeeService.getEmployeeById(id));
     }
 
     @PostMapping
-    public CreateEmployeeResponse createEmployee(@RequestBody CreateEmployeeRequest request){
-        return employeeService.createEmployee(request);
+    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeRequest request){
+        return handleDataResult(employeeService.createEmployee(request));
     }
 
     @GetMapping
-    public List<GetAllEmployeeResponse> getAllEmployee(){
-        return employeeService.getAllEmployee();
+    public ResponseEntity<?> getAllEmployee(){
+        return handleDataResult(employeeService.getAllEmployee());
     }
 
 
     @PutMapping("/{id}")
-    public UpdateEmployeeResponse updateEmployee(@RequestBody UpdateEmployeeRequest request,@PathVariable int id){
-        return employeeService.updateEmployee(request, id);
+    public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeRequest request,@PathVariable int id){
+        return handleDataResult(employeeService.updateEmployee(request, id));
     }
 
     @DeleteMapping("/{id}")
@@ -48,7 +51,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/position/{position}")
-    public List <GetEmployeeByPositionResponse> getEmployeesByPosition(@PathVariable String position){
-        return  employeeService.getEmployeeByPosition(position);
+    public ResponseEntity<?> getEmployeesByPosition(@PathVariable String position){
+        return handleDataResult(employeeService.getEmployeeByPosition(position));
     }
 }

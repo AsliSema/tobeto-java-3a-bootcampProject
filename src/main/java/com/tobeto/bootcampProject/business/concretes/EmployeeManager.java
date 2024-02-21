@@ -10,6 +10,8 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByI
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.EmployeeRepository;
 import com.tobeto.bootcampProject.entities.Employee;
 import lombok.AllArgsConstructor;
@@ -27,32 +29,32 @@ public class EmployeeManager implements EmployeeService {
     private ModelMapperService mapperService;
 
     @Override
-    public List<GetAllEmployeeResponse> getAllEmployee() {
-        List <Employee> employees = employeeRepository.findAll();
-        List <GetAllEmployeeResponse> response = employees.stream().map(employee -> mapperService.
-                forResponse().map(employee, GetAllEmployeeResponse.class)).collect(Collectors.toList());
-
-        return response;
-    }
-    @Override
-    public GetEmployeeByIdResponse getEmployeeById(int id) {
-        Employee employee = employeeRepository.findById(id).orElseThrow();
-        GetEmployeeByIdResponse response = mapperService.forResponse().map(employee, GetEmployeeByIdResponse.class);
-        return response;
-    }
-
-    @Override
-    public CreateEmployeeResponse createEmployee(CreateEmployeeRequest request) {
+    public DataResult<CreateEmployeeResponse> createEmployee(CreateEmployeeRequest request) {
         Employee employee = mapperService.forRequest().map(request, Employee.class);
         employee.setCreatedDate(LocalDateTime.now());
         employeeRepository.save(employee);
 
         CreateEmployeeResponse response = this.mapperService.forResponse().map(employee, CreateEmployeeResponse.class);
-        return response;
+        return new SuccessDataResult<CreateEmployeeResponse>(response, "Employee Created");
     }
 
     @Override
-    public UpdateEmployeeResponse updateEmployee(UpdateEmployeeRequest request, int id) {
+    public DataResult<List<GetAllEmployeeResponse>> getAllEmployee() {
+        List <Employee> employees = employeeRepository.findAll();
+        List <GetAllEmployeeResponse> response = employees.stream().map(employee -> mapperService.
+                forResponse().map(employee, GetAllEmployeeResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult<List<GetAllEmployeeResponse>>(response, "All Employees Listed");
+    }
+    @Override
+    public DataResult<GetEmployeeByIdResponse> getEmployeeById(int id) {
+        Employee employee = employeeRepository.findById(id).orElseThrow();
+        GetEmployeeByIdResponse response = mapperService.forResponse().map(employee, GetEmployeeByIdResponse.class);
+        return new SuccessDataResult<GetEmployeeByIdResponse>(response, "The Employee Listed");
+    }
+
+    @Override
+    public DataResult<UpdateEmployeeResponse> updateEmployee(UpdateEmployeeRequest request, int id) {
         Employee employee = employeeRepository.findById(id).orElseThrow();
 
         Employee updatedEmployee = mapperService.forRequest().map(request, Employee.class);
@@ -69,24 +71,24 @@ public class EmployeeManager implements EmployeeService {
         employeeRepository.save(employee);
         UpdateEmployeeResponse response = mapperService.forResponse().map(employee, UpdateEmployeeResponse.class);
 
-        return response;
+        return new SuccessDataResult<UpdateEmployeeResponse>(response, "Employee Updated");
     }
 
     @Override
-    public DeleteEmployeeResponse deleteEmployeeById(int id) {
-        employeeRepository.deleteById(id);
-        DeleteEmployeeResponse response = new DeleteEmployeeResponse("Employee Deleted");
-        return response;
-    }
-
-    @Override
-    public List <GetEmployeeByPositionResponse> getEmployeeByPosition(String position) {
+    public DataResult<List<GetEmployeeByPositionResponse>> getEmployeeByPosition(String position) {
         List<Employee> employees = employeeRepository.findAllByPosition(position);
 
         List<GetEmployeeByPositionResponse> response = employees.stream()
                 .map(employee -> mapperService.forResponse().map(employee, GetEmployeeByPositionResponse.class))
                 .collect(Collectors.toList());
 
+        return new SuccessDataResult<List<GetEmployeeByPositionResponse>>(response, "All Employees Listed By Position");
+    }
+
+    @Override
+    public DeleteEmployeeResponse deleteEmployeeById(int id) {
+        employeeRepository.deleteById(id);
+        DeleteEmployeeResponse response = new DeleteEmployeeResponse("Employee Deleted");
         return response;
     }
 

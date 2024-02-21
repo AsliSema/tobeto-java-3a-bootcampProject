@@ -8,19 +8,22 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployee
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 
 import java.util.List;
 
 public interface EmployeeService {
-    List<GetAllEmployeeResponse> getAllEmployee();
 
-    GetEmployeeByIdResponse getEmployeeById(int id);
-    CreateEmployeeResponse createEmployee(CreateEmployeeRequest request);
+    DataResult<CreateEmployeeResponse> createEmployee(CreateEmployeeRequest request);
+    DataResult<List<GetAllEmployeeResponse>> getAllEmployee();
 
-    UpdateEmployeeResponse updateEmployee(UpdateEmployeeRequest request, int id);
+    DataResult<GetEmployeeByIdResponse> getEmployeeById(int id);
+
+    DataResult<UpdateEmployeeResponse> updateEmployee(UpdateEmployeeRequest request, int id);
+
+    DataResult<List <GetEmployeeByPositionResponse>> getEmployeeByPosition(String position);
 
     DeleteEmployeeResponse deleteEmployeeById(int id);
 
-    List <GetEmployeeByPositionResponse> getEmployeeByPosition(String position);
 
 }
