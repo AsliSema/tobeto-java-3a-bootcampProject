@@ -9,9 +9,12 @@ import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstru
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.InstructorRepository;
 import com.tobeto.bootcampProject.entities.Instructor;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,31 +28,31 @@ public class InstructorManager implements InstructorService {
     private InstructorRepository instructorRepository;
     private ModelMapperService mapperService;
     @Override
-    public CreateInstructorResponse createInstructor(CreateInstructorRequest request) {
+    public DataResult<CreateInstructorResponse> createInstructor(CreateInstructorRequest request) {
         Instructor instructor = mapperService.forRequest().map(request, Instructor.class);
         instructor.setCreatedDate(LocalDateTime.now());
         instructorRepository.save(instructor);
 
         CreateInstructorResponse response = mapperService.forResponse().map(instructor, CreateInstructorResponse.class);
-        return response;
+        return new SuccessDataResult<CreateInstructorResponse>(response, "Instructor Created");
     }
 
     @Override
-    public List<GetAllInstructorResponse> getAllInstructor() {
+    public DataResult<List<GetAllInstructorResponse>> getAllInstructor() {
         List<Instructor> instructors = instructorRepository.findAll();
         List<GetAllInstructorResponse> response = instructors.stream().map(instructor -> mapperService.forResponse().map(instructor, GetAllInstructorResponse.class)).collect(Collectors.toList());
-        return response;
+        return new SuccessDataResult<List<GetAllInstructorResponse>>(response, "All Instructors Listed");
     }
 
     @Override
-    public GetInstructorByIdResponse getInstructor(int id) {
+    public DataResult<GetInstructorByIdResponse> getInstructor(int id) {
         Instructor instructor = instructorRepository.findById(id).orElseThrow();
         GetInstructorByIdResponse response = mapperService.forResponse().map(instructor, GetInstructorByIdResponse.class);
-        return response;
+        return new SuccessDataResult<GetInstructorByIdResponse>(response, "Instructor Listed");
     }
 
     @Override
-    public UpdateInstructorResponse updateInstructorById(UpdateInstructorRequest request, int id) {
+    public DataResult<UpdateInstructorResponse> updateInstructorById(UpdateInstructorRequest request, int id) {
         Instructor instructor = instructorRepository.findById(id).orElseThrow();
 
         Instructor updatedInstructor = mapperService.forRequest().map(request, Instructor.class);
@@ -66,7 +69,7 @@ public class InstructorManager implements InstructorService {
         instructorRepository.save(instructor);
         UpdateInstructorResponse response = mapperService.forResponse().map(instructor, UpdateInstructorResponse.class);
 
-        return response;
+        return new SuccessDataResult<UpdateInstructorResponse>(response, "Instructor Updated");
     }
 
     @Override
