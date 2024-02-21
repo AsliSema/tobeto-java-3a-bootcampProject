@@ -7,17 +7,18 @@ import com.tobeto.bootcampProject.business.responses.delete.applicant.DeleteAppl
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 
 import java.util.List;
 
 public interface ApplicantService {
-    CreateApplicantResponse createApplicant(CreateApplicantRequest request);
+    DataResult<CreateApplicantResponse> createApplicant(CreateApplicantRequest request);
 
-    GetApplicantByIdResponse getApplicantById(int id);
+    DataResult<GetApplicantByIdResponse> getApplicantById(int id);
 
-    List<GetAllApplicantResponse> getAllApplicant();
+    DataResult<List<GetAllApplicantResponse>> getAllApplicant();
 
-    UpdateApplicantResponse updateApplicantById(UpdateApplicantRequest request, int id);
+    DataResult<UpdateApplicantResponse> updateApplicantById(UpdateApplicantRequest request, int id);
 
     DeleteApplicantResponse deleteApplicantById(int id);
 }

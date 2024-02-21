@@ -9,8 +9,10 @@ import com.tobeto.bootcampProject.business.responses.delete.applicant.DeleteAppl
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,28 +20,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/applicants")
 @AllArgsConstructor
-public class ApplicantController {
+public class ApplicantController extends BaseController{
 
     private ApplicantService applicantService;
 
     @PostMapping
-    public CreateApplicantResponse createApplicant(@RequestBody CreateApplicantRequest request){
-        return applicantService.createApplicant(request);
+    public ResponseEntity<?> createApplicant(@RequestBody CreateApplicantRequest request){
+        return handleDataResult(applicantService.createApplicant(request));
     }
 
     @GetMapping("/{id}")
-    public GetApplicantByIdResponse getApplicant(@PathVariable int id){
-        return applicantService.getApplicantById(id);
+    public ResponseEntity<?> getApplicant(@PathVariable int id){
+        return handleDataResult(applicantService.getApplicantById(id));
     }
 
     @GetMapping
-    public List<GetAllApplicantResponse> gatAllApplicant(){
-        return applicantService.getAllApplicant();
+    public ResponseEntity<?> gatAllApplicant(){
+        return handleDataResult(applicantService.getAllApplicant());
     }
 
     @PutMapping("/{id}")
-    public UpdateApplicantResponse updateApplicant(@Valid @RequestBody UpdateApplicantRequest request, @PathVariable int id){
-        return applicantService.updateApplicantById(request, id);
+    public ResponseEntity<?> updateApplicant(@Valid @RequestBody UpdateApplicantRequest request, @PathVariable int id){
+        return handleDataResult(applicantService.updateApplicantById(request, id));
     }
 
     @DeleteMapping("/{id}")
