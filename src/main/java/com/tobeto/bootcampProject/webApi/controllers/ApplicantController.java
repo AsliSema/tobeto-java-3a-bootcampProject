@@ -45,7 +45,7 @@ public class ApplicantController extends BaseController{
     }
 
     @DeleteMapping("/{id}")
-    public DeleteApplicantResponse deleteApplicant(@PathVariable int id){
-        return applicantService.deleteApplicantById(id);
+    public ResponseEntity<?> deleteApplicant(@PathVariable int id){
+        return handleDataResult(applicantService.deleteApplicantById(id));
     }
 }

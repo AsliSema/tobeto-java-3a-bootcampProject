@@ -4,17 +4,20 @@ import com.tobeto.bootcampProject.business.responses.delete.user.DeleteUserRespo
 import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<GetAllUserResponse> getAll();
+    DataResult<List<GetAllUserResponse>> getAll();
 
-    DeleteUserResponse deleteUser(int id);
-    GetUserByIdResponse getUserById(int id);
+    DataResult<GetUserByIdResponse> getUserById(int id);
 
-    GetUserByEmailResponse getUserByEmail(String email);
+    DataResult<GetUserByEmailResponse> getUserByEmail(String email);
+
+    DataResult<DeleteUserResponse> deleteUser(int id);
 
 
 }

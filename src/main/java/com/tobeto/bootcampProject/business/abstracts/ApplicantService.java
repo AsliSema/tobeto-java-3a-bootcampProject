@@ -20,5 +20,5 @@ public interface ApplicantService {
 
     DataResult<UpdateApplicantResponse> updateApplicantById(UpdateApplicantRequest request, int id);
 
-    DeleteApplicantResponse deleteApplicantById(int id);
+    DataResult<DeleteApplicantResponse> deleteApplicantById(int id);
 }

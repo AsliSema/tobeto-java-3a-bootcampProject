@@ -21,9 +21,9 @@ public interface EmployeeService {
 
     DataResult<UpdateEmployeeResponse> updateEmployee(UpdateEmployeeRequest request, int id);
 
-    DataResult<List <GetEmployeeByPositionResponse>> getEmployeeByPosition(String position);
+    DataResult<List<GetEmployeeByPositionResponse>> getEmployeeByPosition(String position);
 
-    DeleteEmployeeResponse deleteEmployeeById(int id);
+    DataResult<DeleteEmployeeResponse> deleteEmployeeById(int id);
 
 
 }

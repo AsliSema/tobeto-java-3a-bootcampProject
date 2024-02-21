@@ -7,6 +7,7 @@ import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,29 +15,30 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @AllArgsConstructor
-public class UserController {
+public class UserController extends BaseController{
     private UserService userService;
 
     @GetMapping
-    public List<GetAllUserResponse> getAllUsers(){
-        return userService.getAll();
+    public ResponseEntity<?> getAllUsers(){
+        return handleDataResult(userService.getAll());
     }
 
     @GetMapping("/{id}")
-    public GetUserByIdResponse getUser(@PathVariable int id){
-        return userService.getUserById(id);
+    public ResponseEntity<?> getUser(@PathVariable int id){
+        return handleDataResult(userService.getUserById(id));
     }
 
-
-    @DeleteMapping("/{id}")
-    public DeleteUserResponse deleteUser(@PathVariable int id){
-        return userService.deleteUser(id);
-    }
 
     @GetMapping("/getUserByEmail/{email}")
-    public GetUserByEmailResponse getUserByEmail(@PathVariable String email){
-        return userService.getUserByEmail(email);
+    public ResponseEntity<?> getUserByEmail(@PathVariable String email){
+        return handleDataResult(userService.getUserByEmail(email));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable int id){
+        return handleDataResult(userService.deleteUser(id));
+    }
+
 
 }
 

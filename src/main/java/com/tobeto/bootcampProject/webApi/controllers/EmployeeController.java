@@ -24,11 +24,6 @@ import java.util.List;
 public class EmployeeController extends BaseController{
     private EmployeeService employeeService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getEmployeeById(@PathVariable int id){
-        return handleDataResult(employeeService.getEmployeeById(id));
-    }
-
     @PostMapping
     public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeRequest request){
         return handleDataResult(employeeService.createEmployee(request));
@@ -39,19 +34,24 @@ public class EmployeeController extends BaseController{
         return handleDataResult(employeeService.getAllEmployee());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getEmployeeById(@PathVariable int id){
+        return handleDataResult(employeeService.getEmployeeById(id));
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeRequest request,@PathVariable int id){
         return handleDataResult(employeeService.updateEmployee(request, id));
     }
 
-    @DeleteMapping("/{id}")
-    public DeleteEmployeeResponse deleteEmployee(@PathVariable int id){
-        return employeeService.deleteEmployeeById(id);
-    }
-
     @GetMapping("/position/{position}")
     public ResponseEntity<?> getEmployeesByPosition(@PathVariable String position){
         return handleDataResult(employeeService.getEmployeeByPosition(position));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable int id){
+        return handleDataResult(employeeService.deleteEmployeeById(id));
+    }
+
 }

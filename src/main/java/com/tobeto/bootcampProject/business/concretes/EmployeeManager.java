@@ -86,10 +86,10 @@ public class EmployeeManager implements EmployeeService {
     }
 
     @Override
-    public DeleteEmployeeResponse deleteEmployeeById(int id) {
+    public DataResult<DeleteEmployeeResponse> deleteEmployeeById(int id) {
         employeeRepository.deleteById(id);
-        DeleteEmployeeResponse response = new DeleteEmployeeResponse("Employee Deleted");
-        return response;
+        //DeleteEmployeeResponse response = new DeleteEmployeeResponse("Employee Deleted");
+        return new SuccessDataResult<DeleteEmployeeResponse>("Employee Deleted!");
     }
 
 

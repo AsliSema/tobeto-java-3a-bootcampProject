@@ -6,12 +6,14 @@ import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
+import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.UserRepository;
 import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,36 +25,34 @@ public class UserManager implements UserService {
     private ModelMapperService mapperService;
 
     @Override
-    public List<GetAllUserResponse> getAll() {
+    public DataResult<List<GetAllUserResponse>> getAll() {
         List <User> users = userRepository.findAll();
         List <GetAllUserResponse> userResponses = users.stream().map(user->
                 mapperService.forResponse().map(user, GetAllUserResponse.class)).collect(Collectors.toList());
 
-        return userResponses;
+        return new SuccessDataResult<List<GetAllUserResponse>>(userResponses, "All Users Listed");
     }
 
     @Override
-    public GetUserByIdResponse getUserById(int id) {
+    public DataResult<GetUserByIdResponse> getUserById(int id) {
         User user = userRepository.findById(id);
         GetUserByIdResponse response = mapperService.forResponse().map(user, GetUserByIdResponse.class);
-        return response;
-    }
-
-
-    @Override
-    public DeleteUserResponse deleteUser(int id) {
-        userRepository.deleteById(id);
-        DeleteUserResponse response = new DeleteUserResponse("User Deleted");
-        return response;
+        return new SuccessDataResult<GetUserByIdResponse>(response, "User Listed");
     }
 
     @Override
-    public GetUserByEmailResponse getUserByEmail(String email) {
+    public DataResult<GetUserByEmailResponse> getUserByEmail(String email) {
         User user = userRepository.findByEmail(email);
         GetUserByEmailResponse response = mapperService.forResponse().map(user, GetUserByEmailResponse.class);
-        return response;
+        return new SuccessDataResult<GetUserByEmailResponse>(response, "User Listed By Email");
     }
 
+    @Override
+    public DataResult<DeleteUserResponse> deleteUser(int id) {
+        userRepository.deleteById(id);
+        //DeleteUserResponse response = new DeleteUserResponse("User Deleted");
+        return new SuccessDataResult<DeleteUserResponse>("User Deleted!");
+    }
 
 
 }

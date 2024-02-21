@@ -42,8 +42,8 @@ public class InstructorController extends BaseController{
     }
 
     @DeleteMapping("/{id}")
-    public DeleteInstructorResponse deleteInstructor(@PathVariable int id){
-        return instructorService.deleteInstructorById(id);
+    public ResponseEntity<?> deleteInstructor(@PathVariable int id){
+        return handleDataResult(instructorService.deleteInstructorById(id));
     }
 
 }

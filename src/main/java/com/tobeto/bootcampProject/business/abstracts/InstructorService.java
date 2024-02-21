@@ -21,5 +21,5 @@ public interface InstructorService{
 
     DataResult<UpdateInstructorResponse> updateInstructorById(UpdateInstructorRequest request, int id);
 
-    DeleteInstructorResponse deleteInstructorById(int id);
+    DataResult<DeleteInstructorResponse> deleteInstructorById(int id);
 }

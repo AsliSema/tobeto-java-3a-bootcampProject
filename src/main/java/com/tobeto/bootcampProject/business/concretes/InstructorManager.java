@@ -73,10 +73,10 @@ public class InstructorManager implements InstructorService {
     }
 
     @Override
-    public DeleteInstructorResponse deleteInstructorById(int id) {
+    public DataResult<DeleteInstructorResponse> deleteInstructorById(int id) {
         instructorRepository.deleteById(id);
-        DeleteInstructorResponse response = new DeleteInstructorResponse("Instructor Deleted");
-        return response;
+        //DeleteInstructorResponse response = new DeleteInstructorResponse("Instructor Deleted");
+        return new SuccessDataResult<DeleteInstructorResponse>("Instructor Deleted!");
     }
 
 

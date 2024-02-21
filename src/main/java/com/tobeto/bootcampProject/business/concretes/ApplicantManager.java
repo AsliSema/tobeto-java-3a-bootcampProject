@@ -73,10 +73,10 @@ public class ApplicantManager implements ApplicantService {
     }
 
     @Override
-    public DeleteApplicantResponse deleteApplicantById(int id) {
+    public DataResult<DeleteApplicantResponse> deleteApplicantById(int id) {
         applicantRepository.deleteById(id);
-        DeleteApplicantResponse response = new DeleteApplicantResponse("Applicant Deleted");
-        return response;
+        //DeleteApplicantResponse response = new DeleteApplicantResponse("Applicant Deleted");
+        return new SuccessDataResult<DeleteApplicantResponse>("Applicant Deleted!");
     }
 
 
