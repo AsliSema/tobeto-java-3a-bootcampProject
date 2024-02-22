@@ -3,14 +3,14 @@ package com.tobeto.bootcampProject.core.entities;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @MappedSuperclass
 public class BaseEntity <T>{
 

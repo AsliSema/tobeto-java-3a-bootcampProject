@@ -1,6 +1,6 @@
 package com.tobeto.bootcampProject.entities;
 
-
+import com.tobeto.bootcampProject.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,21 +9,17 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="applicants")
+@Entity
+@Table(name="ApplicationState")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "id")
-public class Applicant extends User{
+public class ApplicationState extends BaseEntity <Integer> {
 
-    @Column(name="about")
-    private String about;
+    @Column(name="name")
+    private String name;
 
-
-    @OneToMany(mappedBy = "applicant")
-    private List<Application> applications;
 
 }
