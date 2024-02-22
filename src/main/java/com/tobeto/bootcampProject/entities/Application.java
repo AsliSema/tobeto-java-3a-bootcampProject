@@ -18,27 +18,16 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "id")
 public class Application extends BaseEntity<Integer> {
 
-    /*
-    @Column(name="applicant_id")
-    private int applicant_id;
-
-    @Column(name="bootcamp_id")
-    private int bootcamp_id;
-
-    @Column(name="application_state_id")
-    private int applicationState_id;
-     */
-
     @ManyToOne
-    @JoinColumn(name = "applicant_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "applicant_id")
     private Applicant applicant;
 
     @ManyToOne
-    @JoinColumn(name = "bootcamp_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "bootcamp_id")
     private Bootcamp bootcamp;
 
     @ManyToOne
-    @JoinColumn(name = "application_state_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "application_state_id")
     private ApplicationState applicationState;
 
 
