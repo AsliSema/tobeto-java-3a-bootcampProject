@@ -10,6 +10,7 @@ import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetBootcampByI
 import com.tobeto.bootcampProject.business.responses.update.applicationState.UpdateApplicationStateResponse;
 import com.tobeto.bootcampProject.business.responses.update.bootcamp.UpdateBootcampResponse;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 
 public interface BootcampService {
     DataResult<CreateBootcampResponse> createBootcamp(CreateBootcampRequest request);
@@ -17,5 +18,6 @@ public interface BootcampService {
 
     DataResult<GetBootcampByIdResponse> getbootcamp(int id);
     DataResult<UpdateBootcampResponse> updateBootcamp(UpdateBootcampRequest request);
-    DataResult<DeleteBootcampResponse> deleteBootcamp(int id);
+
+    Result deleteBootcamp(int id);
 }

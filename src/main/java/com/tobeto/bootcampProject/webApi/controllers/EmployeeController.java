@@ -51,7 +51,7 @@ public class EmployeeController extends BaseController{
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable int id){
-        return handleDataResult(employeeService.deleteEmployeeById(id));
+        return handleResult(employeeService.deleteEmployeeById(id));
     }
 
 }

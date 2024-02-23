@@ -46,6 +46,6 @@ public class ApplicantController extends BaseController{
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteApplicant(@PathVariable int id){
-        return handleDataResult(applicantService.deleteApplicantById(id));
+        return handleResult(applicantService.deleteApplicantById(id));
     }
 }

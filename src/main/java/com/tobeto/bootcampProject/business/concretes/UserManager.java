@@ -7,6 +7,7 @@ import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResp
 import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.UserRepository;
@@ -48,10 +49,9 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<DeleteUserResponse> deleteUser(int id) {
+    public Result deleteUser(int id) {
         userRepository.deleteById(id);
-        //DeleteUserResponse response = new DeleteUserResponse("User Deleted");
-        return new SuccessDataResult<DeleteUserResponse>("User Deleted!");
+        return new SuccessResult("User Deleted!");
     }
 
 

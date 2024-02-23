@@ -10,7 +10,9 @@ import com.tobeto.bootcampProject.business.responses.get.application.GetApplicat
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicationRepository;
 import com.tobeto.bootcampProject.entities.Application;
 import lombok.AllArgsConstructor;
@@ -68,9 +70,9 @@ public class ApplicationManager implements ApplicationService {
 
 
     @Override
-    public DataResult<DeleteApplicationResponse> deleteApplication(int id) {
+    public Result deleteApplication(int id) {
         applicationRepository.deleteById(id);
-        return new SuccessDataResult<DeleteApplicationResponse>("Application Deleted");
+        return new SuccessResult("Application Deleted");
     }
 }
 

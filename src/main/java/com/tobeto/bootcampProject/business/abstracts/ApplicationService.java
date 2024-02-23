@@ -9,6 +9,7 @@ import com.tobeto.bootcampProject.business.responses.get.application.GetAllAppli
 import com.tobeto.bootcampProject.business.responses.get.application.GetApplicationByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -19,5 +20,6 @@ public interface ApplicationService {
     DataResult<GetApplicationByIdResponse> getApplication(int id);
 
     DataResult<UpdateApplicationResponse> updateApplication(UpdateApplicationRequest request);
-    DataResult<DeleteApplicationResponse> deleteApplication(int id);
+
+    Result deleteApplication(int id);
  }

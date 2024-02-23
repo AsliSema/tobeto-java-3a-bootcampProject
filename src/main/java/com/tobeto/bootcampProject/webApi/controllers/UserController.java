@@ -36,7 +36,7 @@ public class UserController extends BaseController{
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable int id){
-        return handleDataResult(userService.deleteUser(id));
+        return handleResult(userService.deleteUser(id));
     }
 
 

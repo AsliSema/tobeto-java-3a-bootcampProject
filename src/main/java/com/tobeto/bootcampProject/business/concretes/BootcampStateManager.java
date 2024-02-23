@@ -10,7 +10,9 @@ import com.tobeto.bootcampProject.business.responses.get.bootcampState.GetBootca
 import com.tobeto.bootcampProject.business.responses.update.bootcampState.UpdateBootcampStateResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.BootcampStateRepository;
 import com.tobeto.bootcampProject.entities.BootcampState;
 import lombok.AllArgsConstructor;
@@ -69,8 +71,8 @@ public class BootcampStateManager implements BootcampStateService {
     }
 
     @Override
-    public DataResult<DeleteBootcampStateResponse> deleteBootcampState(int id) {
+    public Result deleteBootcampState(int id) {
         bootcampStateRepository.deleteById(id);
-        return new SuccessDataResult<DeleteBootcampStateResponse>("Bootcamp State Deleted");
+        return new SuccessResult("Bootcamp State Deleted");
     }
 }

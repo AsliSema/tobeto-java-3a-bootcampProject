@@ -43,7 +43,7 @@ public class InstructorController extends BaseController{
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteInstructor(@PathVariable int id){
-        return handleDataResult(instructorService.deleteInstructorById(id));
+        return handleResult(instructorService.deleteInstructorById(id));
     }
 
 }

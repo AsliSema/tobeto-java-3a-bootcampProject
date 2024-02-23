@@ -8,6 +8,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -20,5 +21,5 @@ public interface ApplicantService {
 
     DataResult<UpdateApplicantResponse> updateApplicantById(UpdateApplicantRequest request, int id);
 
-    DataResult<DeleteApplicantResponse> deleteApplicantById(int id);
+    Result deleteApplicantById(int id);
 }

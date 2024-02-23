@@ -35,6 +35,6 @@ public class BootcampController extends BaseController{
 
     @DeleteMapping
     public ResponseEntity<?> deleteBootcamp(@PathVariable int id){
-        return handleDataResult(bootcampService.deleteBootcamp(id));
+        return handleResult(bootcampService.deleteBootcamp(id));
     }
 }

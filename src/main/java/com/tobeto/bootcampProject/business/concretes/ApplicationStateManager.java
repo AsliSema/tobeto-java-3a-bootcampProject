@@ -10,7 +10,9 @@ import com.tobeto.bootcampProject.business.responses.get.applicationState.GetApp
 import com.tobeto.bootcampProject.business.responses.update.applicationState.UpdateApplicationStateResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicationStateRepository;
 import com.tobeto.bootcampProject.entities.ApplicationState;
 import lombok.AllArgsConstructor;
@@ -67,8 +69,8 @@ public class ApplicationStateManager implements ApplicationStateService {
     }
 
     @Override
-    public DataResult<DeleteApplicationStateResponse> deleteApplicationState(int id) {
+    public Result deleteApplicationState(int id) {
         applicationStateRepository.deleteById(id);
-        return new SuccessDataResult<DeleteApplicationStateResponse>("Application State Deleted");
+        return new SuccessResult("Application State Deleted");
     }
 }

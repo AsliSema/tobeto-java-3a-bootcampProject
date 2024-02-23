@@ -35,6 +35,6 @@ public class ApplicationStateController extends BaseController{
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteApplicantState(@PathVariable int id){
-        return handleDataResult(applicationStateService.deleteApplicationState(id));
+        return handleResult(applicationStateService.deleteApplicationState(id));
     }
 }
