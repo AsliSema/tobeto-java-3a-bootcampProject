@@ -2,9 +2,7 @@ package com.tobeto.bootcampProject.business.abstracts;
 
 import com.tobeto.bootcampProject.business.requests.create.application.CreateApplicationRequest;
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
-import com.tobeto.bootcampProject.business.requests.update.applicationState.UpdateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.responses.create.applications.CreateApplicationResponse;
-import com.tobeto.bootcampProject.business.responses.delete.application.DeleteApplicationResponse;
 import com.tobeto.bootcampProject.business.responses.get.application.GetAllApplicationsResponse;
 import com.tobeto.bootcampProject.business.responses.get.application.GetApplicationByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;

@@ -1,13 +1,10 @@
 package com.tobeto.bootcampProject.business.abstracts;
 
 import com.tobeto.bootcampProject.business.requests.create.bootcamp.CreateBootcampRequest;
-import com.tobeto.bootcampProject.business.requests.update.applicationState.UpdateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.requests.update.bootcamp.UpdateBootcampRequest;
 import com.tobeto.bootcampProject.business.responses.create.bootcamp.CreateBootcampResponse;
-import com.tobeto.bootcampProject.business.responses.delete.bootcamp.DeleteBootcampResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetAllBootcampsResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetBootcampByIdResponse;
-import com.tobeto.bootcampProject.business.responses.update.applicationState.UpdateApplicationStateResponse;
 import com.tobeto.bootcampProject.business.responses.update.bootcamp.UpdateBootcampResponse;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.Result;

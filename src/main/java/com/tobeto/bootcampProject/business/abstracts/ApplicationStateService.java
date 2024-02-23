@@ -3,7 +3,6 @@ package com.tobeto.bootcampProject.business.abstracts;
 import com.tobeto.bootcampProject.business.requests.create.applicationState.CreateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.requests.update.applicationState.UpdateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.responses.create.applicationState.CreateApplicationStateResponse;
-import com.tobeto.bootcampProject.business.responses.delete.applicationState.DeleteApplicationStateResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicationState.GetAllApplicationStatesResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicationState.GetApplicationStateByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicationState.UpdateApplicationStateResponse;

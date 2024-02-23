@@ -4,7 +4,6 @@ import com.tobeto.bootcampProject.business.abstracts.InstructorService;
 import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInstructorRequest;
 import com.tobeto.bootcampProject.business.requests.update.instructor.UpdateInstructorRequest;
 import com.tobeto.bootcampProject.business.responses.create.intructor.CreateInstructorResponse;
-import com.tobeto.bootcampProject.business.responses.delete.instructor.DeleteInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;

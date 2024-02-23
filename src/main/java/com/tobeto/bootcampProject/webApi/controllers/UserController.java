@@ -2,10 +2,6 @@ package com.tobeto.bootcampProject.webApi.controllers;
 
 
 import com.tobeto.bootcampProject.business.abstracts.UserService;
-import com.tobeto.bootcampProject.business.responses.delete.user.DeleteUserResponse;
-import com.tobeto.bootcampProject.business.responses.get.user.GetAllUserResponse;
-import com.tobeto.bootcampProject.business.responses.get.user.GetUserByEmailResponse;
-import com.tobeto.bootcampProject.business.responses.get.user.GetUserByIdResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -4,7 +4,6 @@ import com.tobeto.bootcampProject.business.abstracts.BootcampService;
 import com.tobeto.bootcampProject.business.requests.create.bootcamp.CreateBootcampRequest;
 import com.tobeto.bootcampProject.business.requests.update.bootcamp.UpdateBootcampRequest;
 import com.tobeto.bootcampProject.business.responses.create.bootcamp.CreateBootcampResponse;
-import com.tobeto.bootcampProject.business.responses.delete.bootcamp.DeleteBootcampResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetAllBootcampsResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetBootcampByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.bootcamp.UpdateBootcampResponse;

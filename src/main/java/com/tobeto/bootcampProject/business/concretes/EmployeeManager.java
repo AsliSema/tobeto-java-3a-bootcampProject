@@ -4,7 +4,6 @@ import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampProject.business.responses.create.employee.CreateEmployeeResponse;
-import com.tobeto.bootcampProject.business.responses.delete.employee.DeleteEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
