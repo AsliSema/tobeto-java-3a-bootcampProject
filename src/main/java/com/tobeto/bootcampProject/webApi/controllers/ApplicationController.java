@@ -5,6 +5,7 @@ import com.tobeto.bootcampProject.business.requests.create.applicant.CreateAppli
 import com.tobeto.bootcampProject.business.requests.create.application.CreateApplicationRequest;
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,11 @@ public class ApplicationController extends BaseController{
     @PutMapping
     public ResponseEntity<?> updateApplication(UpdateApplicationRequest request){
         return handleDataResult(applicationService.updateApplication(request));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllApplicant(@RequestBody PageDto pageDto){
+        return handleDataResult(applicationService.getAllSorted(pageDto));
     }
 
     @DeleteMapping("/{id}")

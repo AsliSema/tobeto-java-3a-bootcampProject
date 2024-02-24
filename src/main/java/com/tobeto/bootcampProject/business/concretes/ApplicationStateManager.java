@@ -4,17 +4,24 @@ import com.tobeto.bootcampProject.business.abstracts.ApplicationStateService;
 import com.tobeto.bootcampProject.business.requests.create.applicationState.CreateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.requests.update.applicationState.UpdateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.responses.create.applicationState.CreateApplicationStateResponse;
+import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicationState.GetAllApplicationStatesResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicationState.GetApplicationStateByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicationState.UpdateApplicationStateResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicationStateRepository;
+import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.ApplicationState;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -65,6 +72,16 @@ public class ApplicationStateManager implements ApplicationStateService {
         UpdateApplicationStateResponse response = mapperService.forResponse().map(updatedApplicationState, UpdateApplicationStateResponse.class);
 
         return new SuccessDataResult<UpdateApplicationStateResponse>(response, "Application State Updated");
+    }
+
+    @Override
+    public DataResult<List<GetAllApplicationStatesResponse>> getAllSorted(PageDto pageDto) {
+        Sort sort = Sort.by(Sort.Direction.fromString(pageDto.getSortDirection()), pageDto.getSortBy());
+        Pageable pageable = PageRequest.of(pageDto.getPageNumber(), pageDto.getPageSize(), sort);
+        Page<ApplicationState> applicationStates = applicationStateRepository.findAll(pageable);
+        List <GetAllApplicationStatesResponse> response = applicationStates.stream().map(applicationState -> mapperService.forResponse().map(applicationState, GetAllApplicationStatesResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult<List<GetAllApplicationStatesResponse>>(response, "All Applicant States Sorted");
     }
 
     @Override

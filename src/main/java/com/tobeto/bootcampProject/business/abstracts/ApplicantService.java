@@ -6,6 +6,7 @@ import com.tobeto.bootcampProject.business.responses.create.applicant.CreateAppl
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.Result;
 
@@ -20,5 +21,6 @@ public interface ApplicantService {
 
     DataResult<UpdateApplicantResponse> updateApplicantById(UpdateApplicantRequest request, int id);
 
+    DataResult<List<GetAllApplicantResponse>> getAllSorted(PageDto pageDto);
     Result deleteApplicantById(int id);
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="BootcampState")
+@Table(name="bootcampState")
 public class BootcampState extends BaseEntity<Integer> {
 
     @Column(name="name")

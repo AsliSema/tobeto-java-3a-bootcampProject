@@ -3,6 +3,7 @@ package com.tobeto.bootcampProject.webApi.controllers;
 import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,11 @@ public class EmployeeController extends BaseController{
     @GetMapping("/position/{position}")
     public ResponseEntity<?> getEmployeesByPosition(@PathVariable String position){
         return handleDataResult(employeeService.getEmployeeByPosition(position));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllApplicant(@RequestBody PageDto pageDto){
+        return handleDataResult(employeeService.getAllSorted(pageDto));
     }
 
     @DeleteMapping("/{id}")

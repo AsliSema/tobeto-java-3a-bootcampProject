@@ -8,6 +8,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
@@ -15,6 +16,10 @@ import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicantRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -71,6 +76,16 @@ public class ApplicantManager implements ApplicantService {
         UpdateApplicantResponse response = mapperService.forResponse().map(applicant, UpdateApplicantResponse.class);
 
         return new SuccessDataResult<UpdateApplicantResponse>(response, "The Applicant Updated");
+    }
+
+    @Override
+    public DataResult<List<GetAllApplicantResponse>> getAllSorted(PageDto pageDto) {
+        Sort sort = Sort.by(Sort.Direction.fromString(pageDto.getSortDirection()), pageDto.getSortBy());
+        Pageable pageable = PageRequest.of(pageDto.getPageNumber(), pageDto.getPageSize(), sort);
+        Page<Applicant> applicants = applicantRepository.findAll(pageable);
+        List <GetAllApplicantResponse> response = applicants.stream().map(applicant -> mapperService.forResponse().map(applicant, GetAllApplicantResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult<List<GetAllApplicantResponse>>(response, "All Applicants Sorted");
     }
 
     @Override

@@ -4,18 +4,25 @@ import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampProject.business.responses.create.employee.CreateEmployeeResponse;
+import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.EmployeeRepository;
+import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Employee;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -84,6 +91,16 @@ public class EmployeeManager implements EmployeeService {
                 .collect(Collectors.toList());
 
         return new SuccessDataResult<List<GetEmployeeByPositionResponse>>(response, "All Employees Listed By Position");
+    }
+
+    @Override
+    public DataResult<List<GetAllEmployeeResponse>> getAllSorted(PageDto pageDto) {
+        Sort sort = Sort.by(Sort.Direction.fromString(pageDto.getSortDirection()), pageDto.getSortBy());
+        Pageable pageable = PageRequest.of(pageDto.getPageNumber(), pageDto.getPageSize(), sort);
+        Page<Employee> employees = employeeRepository.findAll(pageable);
+        List <GetAllEmployeeResponse> response = employees.stream().map(employee -> mapperService.forResponse().map(employee, GetAllEmployeeResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult<List<GetAllEmployeeResponse>>(response, "All Employees Sorted");
     }
 
     @Override

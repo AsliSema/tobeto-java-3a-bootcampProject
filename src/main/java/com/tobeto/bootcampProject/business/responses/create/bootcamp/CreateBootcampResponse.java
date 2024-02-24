@@ -19,5 +19,5 @@ public class CreateBootcampResponse {
     private int instructor_id;
     private LocalDateTime startDate;
     private  LocalDateTime endDate;
-    private int bootcamp_state_id;
+    private int bootcampState_id;
 }

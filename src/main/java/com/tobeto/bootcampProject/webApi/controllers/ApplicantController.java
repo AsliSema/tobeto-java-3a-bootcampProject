@@ -4,6 +4,7 @@ package com.tobeto.bootcampProject.webApi.controllers;
 import com.tobeto.bootcampProject.business.abstracts.ApplicantService;
 import com.tobeto.bootcampProject.business.requests.create.applicant.CreateApplicantRequest;
 import com.tobeto.bootcampProject.business.requests.update.applicant.UpdateApplicantRequest;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,15 @@ public class ApplicantController extends BaseController{
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateApplicant(@Valid @RequestBody UpdateApplicantRequest request, @PathVariable int id){
+    public ResponseEntity<?> updateApplicant(@RequestBody UpdateApplicantRequest request, @PathVariable int id){
         return handleDataResult(applicantService.updateApplicantById(request, id));
     }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllApplicant(@RequestBody PageDto pageDto){
+        return handleDataResult(applicantService.getAllSorted(pageDto));
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteApplicant(@PathVariable int id){
