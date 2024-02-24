@@ -33,12 +33,7 @@ public class UserManager implements UserService {
         return new SuccessDataResult<List<GetAllUserResponse>>(userResponses, "All Users Listed");
     }
 
-    @Override
-    public DataResult<GetUserByIdResponse> getUserById(int id) {
-        User user = userRepository.findById(id);
-        GetUserByIdResponse response = mapperService.forResponse().map(user, GetUserByIdResponse.class);
-        return new SuccessDataResult<GetUserByIdResponse>(response, "User Listed");
-    }
+
 
     @Override
     public DataResult<GetUserByEmailResponse> getUserByEmail(String email) {
@@ -47,11 +42,6 @@ public class UserManager implements UserService {
         return new SuccessDataResult<GetUserByEmailResponse>(response, "User Listed By Email");
     }
 
-    @Override
-    public Result deleteUser(int id) {
-        userRepository.deleteById(id);
-        return new SuccessResult("User Deleted!");
-    }
 
 
 }

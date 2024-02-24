@@ -12,11 +12,8 @@ public interface UserService {
 
     DataResult<List<GetAllUserResponse>> getAll();
 
-    DataResult<GetUserByIdResponse> getUserById(int id);
-
     DataResult<GetUserByEmailResponse> getUserByEmail(String email);
 
-   Result deleteUser(int id);
 
 
 }
