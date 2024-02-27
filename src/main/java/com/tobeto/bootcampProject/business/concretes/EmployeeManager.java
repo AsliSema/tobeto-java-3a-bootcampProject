@@ -1,5 +1,6 @@
 package com.tobeto.bootcampProject.business.concretes;
 
+import com.tobeto.bootcampProject.business.abstracts.BaseService;
 import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
@@ -16,6 +17,7 @@ import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.EmployeeRepository;
+import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Employee;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,14 +32,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class EmployeeManager implements EmployeeService {
+public class EmployeeManager implements EmployeeService, BaseService {
 
     private EmployeeRepository employeeRepository;
     private ModelMapperService mapperService;
 
     @Override
     public DataResult<CreateEmployeeResponse> createEmployee(CreateEmployeeRequest request) {
-        checkIfEmployeeExists(request.getEmail());
+        checkIfUserExists(request.getEmail());
         Employee employee = mapperService.forRequest().map(request, Employee.class);
         employee.setCreatedDate(LocalDateTime.now());
         employeeRepository.save(employee);
@@ -110,12 +112,11 @@ public class EmployeeManager implements EmployeeService {
     }
 
 
-    private void checkIfEmployeeExists(String email){
+    @Override
+    public void checkIfUserExists(String email) {
         Employee employee = employeeRepository.getByEmail(email.trim());
         if(employee != null){
             throw new BusinessException("Employee already exists!");
         }
-
     }
-
 }

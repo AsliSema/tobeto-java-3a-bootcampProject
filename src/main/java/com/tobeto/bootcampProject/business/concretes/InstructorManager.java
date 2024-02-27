@@ -1,5 +1,6 @@
 package com.tobeto.bootcampProject.business.concretes;
 
+import com.tobeto.bootcampProject.business.abstracts.BaseService;
 import com.tobeto.bootcampProject.business.abstracts.InstructorService;
 import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInstructorRequest;
 import com.tobeto.bootcampProject.business.requests.update.instructor.UpdateInstructorRequest;
@@ -8,6 +9,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
+import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -31,12 +33,13 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class InstructorManager implements InstructorService {
+public class InstructorManager implements InstructorService, BaseService {
 
     private InstructorRepository instructorRepository;
     private ModelMapperService mapperService;
     @Override
     public DataResult<CreateInstructorResponse> createInstructor(CreateInstructorRequest request) {
+        checkIfUserExists(request.getEmail());
         Instructor instructor = mapperService.forRequest().map(request, Instructor.class);
         instructor.setCreatedDate(LocalDateTime.now());
         instructorRepository.save(instructor);
@@ -97,4 +100,11 @@ public class InstructorManager implements InstructorService {
     }
 
 
+    @Override
+    public void checkIfUserExists(String email) {
+        Instructor instructor = instructorRepository.getByEmail(email.trim());
+        if(instructor != null){
+            throw new BusinessException("Employee already exists!");
+        }
+    }
 }
