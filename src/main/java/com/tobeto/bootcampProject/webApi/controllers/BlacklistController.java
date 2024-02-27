@@ -5,6 +5,7 @@ import com.tobeto.bootcampProject.business.requests.create.applicant.CreateAppli
 import com.tobeto.bootcampProject.business.requests.create.blacklist.CreateBlacklistRequest;
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
 import com.tobeto.bootcampProject.business.requests.update.blacklist.UpdateBlacklistRequest;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,11 @@ public class BlacklistController extends BaseController{
     @PutMapping
     public ResponseEntity<?> updateBlacklist(UpdateBlacklistRequest request){
         return handleDataResult(blacklistService.updateBlacklist(request));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllBlacklists(@RequestBody PageDto pageDto){
+        return handleDataResult(blacklistService.getAllSorted(pageDto));
     }
 
 }

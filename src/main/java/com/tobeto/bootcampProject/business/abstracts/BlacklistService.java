@@ -11,6 +11,7 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployee
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.blacklist.UpdateBlacklistResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
+import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface BlacklistService {
     DataResult<GetBlacklistByIdResponse> getBlacklistById(int id);
 
     DataResult<UpdateBlacklistResponse> updateBlacklist(UpdateBlacklistRequest request);
+
+    DataResult<List<GetAllBlacklistResponse>> getAllSorted(PageDto pageDto);
 }

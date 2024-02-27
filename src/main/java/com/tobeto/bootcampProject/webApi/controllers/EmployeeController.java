@@ -42,7 +42,7 @@ public class EmployeeController extends BaseController{
     }
 
     @GetMapping("/sort")
-    public ResponseEntity<?> getAllApplicant(@RequestBody PageDto pageDto){
+    public ResponseEntity<?> getAllEmployee(@RequestBody PageDto pageDto){
         return handleDataResult(employeeService.getAllSorted(pageDto));
     }
 
