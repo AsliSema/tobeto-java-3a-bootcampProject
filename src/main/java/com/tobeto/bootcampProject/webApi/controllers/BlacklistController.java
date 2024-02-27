@@ -18,10 +18,14 @@ public class BlacklistController extends BaseController{
         return handleDataResult(blacklistService.createBlacklist(request));
     }
 
-
     @GetMapping
     public ResponseEntity<?> getAllBlacklists(){
         return handleDataResult(blacklistService.getAllBlacklist());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBlacklist(@PathVariable int id){
+        return handleDataResult(blacklistService.getBlacklistById(id));
     }
 
 }

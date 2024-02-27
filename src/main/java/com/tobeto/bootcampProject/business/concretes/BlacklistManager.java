@@ -5,7 +5,9 @@ import com.tobeto.bootcampProject.business.requests.create.blacklist.CreateBlack
 import com.tobeto.bootcampProject.business.responses.create.applicant.CreateApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.create.blacklist.CreateBlacklistResponse;
 import com.tobeto.bootcampProject.business.responses.get.blacklist.GetAllBlacklistResponse;
+import com.tobeto.bootcampProject.business.responses.get.blacklist.GetBlacklistByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
+import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
@@ -46,5 +48,12 @@ public class BlacklistManager implements BlacklistService {
 
         return new SuccessDataResult<List<GetAllBlacklistResponse>>(response, "All Blacklists Listed");
 
+    }
+
+    @Override
+    public DataResult<GetBlacklistByIdResponse> getBlacklistById(int id) {
+        Blacklist blacklist = blacklistRepository.findById(id).orElseThrow();
+        GetBlacklistByIdResponse response = mapperService.forResponse().map(blacklist, GetBlacklistByIdResponse.class);
+        return new SuccessDataResult<GetBlacklistByIdResponse>(response, "The Blacklist Listed");
     }
 }
