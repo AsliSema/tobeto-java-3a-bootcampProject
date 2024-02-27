@@ -4,6 +4,7 @@ import com.tobeto.bootcampProject.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -14,7 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name="Bootcamp")
-public class Bootcamp extends BaseEntity <Integer> {
+@EqualsAndHashCode(callSuper = true)
+public class Bootcamp extends BaseEntity<Integer> {
 
     @Column(name="name")
     private String name;

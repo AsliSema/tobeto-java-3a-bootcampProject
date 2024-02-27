@@ -12,6 +12,7 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployee
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
 import com.tobeto.bootcampProject.business.responses.update.blacklist.UpdateBlacklistResponse;
+import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -64,7 +65,7 @@ public class BlacklistManager implements BlacklistService {
 
     @Override
     public DataResult<GetBlacklistByIdResponse> getBlacklistById(int id) {
-        Blacklist blacklist = blacklistRepository.findById(id).orElseThrow();
+        Blacklist blacklist = blacklistRepository.findById(id);
         GetBlacklistByIdResponse response = mapperService.forResponse().map(blacklist, GetBlacklistByIdResponse.class);
         return new SuccessDataResult<GetBlacklistByIdResponse>(response, "The Blacklist Listed");
     }

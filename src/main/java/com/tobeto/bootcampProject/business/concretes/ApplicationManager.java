@@ -1,13 +1,16 @@
 package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.ApplicationService;
+import com.tobeto.bootcampProject.business.abstracts.BlacklistService;
 import com.tobeto.bootcampProject.business.requests.create.application.CreateApplicationRequest;
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
 import com.tobeto.bootcampProject.business.responses.create.applications.CreateApplicationResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.application.GetAllApplicationsResponse;
 import com.tobeto.bootcampProject.business.responses.get.application.GetApplicationByIdResponse;
+import com.tobeto.bootcampProject.business.responses.get.blacklist.GetBlacklistByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
+import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -15,8 +18,11 @@ import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicationRepository;
+import com.tobeto.bootcampProject.dataAccess.abstracts.BlacklistRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Application;
+import com.tobeto.bootcampProject.entities.Blacklist;
+import com.tobeto.bootcampProject.entities.Employee;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,9 +40,15 @@ public class ApplicationManager implements ApplicationService {
 
     private ApplicationRepository applicationRepository;
     private ModelMapperService mapperService;
+    private BlacklistService blacklistService;
+    private BlacklistRepository blacklistRepository;
 
     @Override
     public DataResult<CreateApplicationResponse> createApplication(CreateApplicationRequest request) {
+        //checkIfApplicantInBlacklist(request.getApplicant_id());
+        checkIfApplicantInBlacklistSecond(request.getApplicant_id());
+
+        System.out.println(request.getApplicant_id());
         Application application = mapperService.forRequest().map(request, Application.class);
         System.out.println(application);
         application.setCreatedDate(LocalDateTime.now());
@@ -90,6 +102,24 @@ public class ApplicationManager implements ApplicationService {
         applicationRepository.deleteById(id);
         return new SuccessResult("Application Deleted");
     }
+
+
+    public void checkIfApplicantInBlacklist(int applicantIdInApplication) {
+        DataResult<GetBlacklistByIdResponse> blacklist = blacklistService.getBlacklistById(applicantIdInApplication);
+        System.out.println(blacklist);
+        if(blacklist.isSuccess() == true){
+            throw new BusinessException("You Are In The Blacklist!");
+        }
+    }
+
+    public void checkIfApplicantInBlacklistSecond(int applicantIdInApplication) {
+        Blacklist blacklist = blacklistRepository.getByApplicantId(applicantIdInApplication);
+        System.out.println(blacklist);
+        if(blacklist != null){
+            throw new BusinessException("You Are In The Blacklist!");
+        }
+    }
+
 }
 
 

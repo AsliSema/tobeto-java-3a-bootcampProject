@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name="ApplicationState")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "id")
-public class ApplicationState extends BaseEntity <Integer> {
+public class ApplicationState extends BaseEntity<Integer> {
 
     @Column(name="name")
     private String name;
