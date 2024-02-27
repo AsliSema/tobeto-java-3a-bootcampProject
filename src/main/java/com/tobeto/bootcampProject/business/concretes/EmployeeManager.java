@@ -37,6 +37,7 @@ public class EmployeeManager implements EmployeeService {
 
     @Override
     public DataResult<CreateEmployeeResponse> createEmployee(CreateEmployeeRequest request) {
+        checkIfEmployeeExists(request.getEmail());
         Employee employee = mapperService.forRequest().map(request, Employee.class);
         employee.setCreatedDate(LocalDateTime.now());
         employeeRepository.save(employee);
@@ -108,5 +109,13 @@ public class EmployeeManager implements EmployeeService {
         return new SuccessResult("Employee Deleted!");
     }
 
+
+    private void checkIfEmployeeExists(String email){
+        Employee employee = employeeRepository.getByEmail(email.trim());
+        if(employee != null){
+            throw new BusinessException("Employee already exists!");
+        }
+
+    }
 
 }
