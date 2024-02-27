@@ -2,17 +2,22 @@ package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.BlacklistService;
 import com.tobeto.bootcampProject.business.requests.create.blacklist.CreateBlacklistRequest;
+import com.tobeto.bootcampProject.business.requests.update.blacklist.UpdateBlacklistRequest;
+import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampProject.business.responses.create.applicant.CreateApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.create.blacklist.CreateBlacklistResponse;
 import com.tobeto.bootcampProject.business.responses.get.blacklist.GetAllBlacklistResponse;
 import com.tobeto.bootcampProject.business.responses.get.blacklist.GetBlacklistByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetAllEmployeeResponse;
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByIdResponse;
+import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
+import com.tobeto.bootcampProject.business.responses.update.blacklist.UpdateBlacklistResponse;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.BlacklistRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
+import com.tobeto.bootcampProject.entities.Application;
 import com.tobeto.bootcampProject.entities.Blacklist;
 import com.tobeto.bootcampProject.entities.Employee;
 import lombok.AllArgsConstructor;
@@ -56,4 +61,18 @@ public class BlacklistManager implements BlacklistService {
         GetBlacklistByIdResponse response = mapperService.forResponse().map(blacklist, GetBlacklistByIdResponse.class);
         return new SuccessDataResult<GetBlacklistByIdResponse>(response, "The Blacklist Listed");
     }
+
+    @Override
+    public DataResult<UpdateBlacklistResponse> updateBlacklist(UpdateBlacklistRequest request) {
+        Blacklist blacklist = mapperService.forRequest().map(request, Blacklist.class);
+        blacklist.setUpdatedDate(LocalDateTime.now());
+        blacklistRepository.save(blacklist);
+
+        UpdateBlacklistResponse response = mapperService.forResponse().map(blacklist, UpdateBlacklistResponse.class);
+
+        return new SuccessDataResult<UpdateBlacklistResponse>(response, "Blacklist Updated");
+    }
+
+
+
 }
