@@ -9,4 +9,6 @@ import java.util.List;
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findAllByPosition(@Param("position") String position);
+
+    Employee getByEmail(String email);
 }

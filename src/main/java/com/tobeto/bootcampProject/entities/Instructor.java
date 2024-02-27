@@ -16,7 +16,6 @@ import java.util.List;
 @Table(name = "instructors")
 @EqualsAndHashCode(callSuper = true)
 @PrimaryKeyJoinColumn(name = "id")
-
 public class Instructor extends User{
 
     @Column(name = "companyName")
