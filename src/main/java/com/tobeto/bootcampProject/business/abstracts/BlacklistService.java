@@ -13,6 +13,7 @@ import com.tobeto.bootcampProject.business.responses.update.blacklist.UpdateBlac
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface BlacklistService {
     DataResult<UpdateBlacklistResponse> updateBlacklist(UpdateBlacklistRequest request);
 
     DataResult<List<GetAllBlacklistResponse>> getAllSorted(PageDto pageDto);
+
+    Result deleteBlacklist(int id);
 }

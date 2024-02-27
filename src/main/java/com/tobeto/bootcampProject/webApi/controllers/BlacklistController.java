@@ -41,4 +41,9 @@ public class BlacklistController extends BaseController{
         return handleDataResult(blacklistService.getAllSorted(pageDto));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBlacklist(@PathVariable int id){
+        return handleResult(blacklistService.deleteBlacklist(id));
+    }
+
 }

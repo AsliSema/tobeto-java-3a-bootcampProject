@@ -15,7 +15,9 @@ import com.tobeto.bootcampProject.business.responses.update.blacklist.UpdateBlac
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
+import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
+import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.BlacklistRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Application;
@@ -86,6 +88,12 @@ public class BlacklistManager implements BlacklistService {
         List <GetAllBlacklistResponse> response = blacklists.stream().map(blacklist -> mapperService.forResponse().map(blacklist, GetAllBlacklistResponse.class)).collect(Collectors.toList());
 
         return new SuccessDataResult<List<GetAllBlacklistResponse>>(response, "All Blacklists Sorted");
+    }
+
+    @Override
+    public Result deleteBlacklist(int id) {
+        blacklistRepository.deleteById(id);
+        return new SuccessResult("Blacklist Deleted!");
     }
 
 
