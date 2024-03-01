@@ -16,8 +16,10 @@ import java.time.LocalDateTime;
 public class CreateBootcampResponse {
     private int id;
     private String name;
-    private int instructor_id;
+    private int instructorId;
     private LocalDateTime startDate;
     private  LocalDateTime endDate;
-    private int bootcampState_id;
+    private int bootcampStateId;
+    private String instructorCompanyName;
+    private String instructorFirstName;
 }

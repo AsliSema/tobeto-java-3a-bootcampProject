@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "instructors")
 @EqualsAndHashCode(callSuper = true)
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Instructor extends User{
 
     @Column(name = "companyName")

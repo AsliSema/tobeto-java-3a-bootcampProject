@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Table(name="Blacklist")
+@Table(name="blacklists")
 public class Blacklist extends BaseEntity<Integer> {
 
     @Column(name="reason")
@@ -25,6 +25,6 @@ public class Blacklist extends BaseEntity<Integer> {
     private LocalDateTime date;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="applicant_id")
+    @JoinColumn(name="applicantId")
     private Applicant applicant;
 }

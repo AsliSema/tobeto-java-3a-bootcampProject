@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UpdateBootcampRequest {
     private String name;
-    private int instructor_id;
+    private int instructorId;
     private LocalDateTime startDate;
     private  LocalDateTime endDate;
-    private int bootcampState_id;
+    private int bootcampStateId;
 }

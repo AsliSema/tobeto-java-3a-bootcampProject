@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class GetApplicationByIdResponse {
     private int id;
     private String applicantAbout;
-    private int applicant_id;
-    private int bootcamp_id;
-    private int application_state_id;
+    private int applicantId;
+    private int bootcampId;
+    private int applicationStateId;
 }

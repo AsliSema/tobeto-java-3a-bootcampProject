@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 public class GetAllBootcampsResponse {
     private int id;
     private String name;
-    private int instructor_id;
+    private int instructorId;
     private LocalDateTime startDate;
     private  LocalDateTime endDate;
-    private int bootcamp_state_id;
+    private int bootcampStateId;
     private String instructorCompanyName;
-    private String intructorName;
+    private String instructorName;
 }

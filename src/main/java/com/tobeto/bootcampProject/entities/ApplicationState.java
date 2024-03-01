@@ -13,13 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="ApplicationState")
+@Table(name="applicationStates")
 @EqualsAndHashCode(callSuper = true)
-@PrimaryKeyJoinColumn(name = "id")
 public class ApplicationState extends BaseEntity<Integer> {
 
     @Column(name="name")
     private String name;
+
+    @OneToMany(mappedBy = "applicationState")
+    private List<Application> applications;
 
 
 }

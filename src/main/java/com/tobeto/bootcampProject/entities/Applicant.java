@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name="applicants")
 @EqualsAndHashCode(callSuper = true)
-@PrimaryKeyJoinColumn(name = "id")
+@PrimaryKeyJoinColumn(name = "user_id")
 public class Applicant extends User{
 
     @Column(name="about")

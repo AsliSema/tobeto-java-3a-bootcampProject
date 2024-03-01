@@ -4,18 +4,18 @@ import com.tobeto.bootcampProject.core.entities.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="Bootcamp")
-@EqualsAndHashCode(callSuper = true)
+@Table(name="bootcamps")
 public class Bootcamp extends BaseEntity<Integer> {
 
     @Column(name="name")
@@ -27,12 +27,12 @@ public class Bootcamp extends BaseEntity<Integer> {
     @Column(name = "endDate")
     private  LocalDateTime endDate;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "instructor_id")
+    @ManyToOne
+    @JoinColumn(name = "instructorId")
     private Instructor instructor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bootcampState_id")
+    @ManyToOne
+    @JoinColumn(name = "bootcampStateId")
     private BootcampState bootcampState;
 
     @OneToMany(mappedBy = "bootcamp")

@@ -40,17 +40,17 @@ public class ApplicationManager implements ApplicationService {
 
     private ApplicationRepository applicationRepository;
     private ModelMapperService mapperService;
-    private BlacklistService blacklistService;
     private BlacklistRepository blacklistRepository;
+    private BlacklistManager blacklistManager;
 
     @Override
     public DataResult<CreateApplicationResponse> createApplication(CreateApplicationRequest request) {
-        //checkIfApplicantInBlacklist(request.getApplicant_id());
-        checkIfApplicantInBlacklistSecond(request.getApplicant_id());
+        System.out.println(request.getApplicantId());
+        //checkIfApplicantInBlacklist(request.getApplicantId());
+        //checkIfApplicantInBlacklistSecond(request.getApplicantId());
 
-        System.out.println(request.getApplicant_id());
         Application application = mapperService.forRequest().map(request, Application.class);
-        System.out.println(application);
+        System.out.println(application.getApplicant());
         application.setCreatedDate(LocalDateTime.now());
         applicationRepository.save(application);
 
@@ -105,8 +105,8 @@ public class ApplicationManager implements ApplicationService {
 
 
     public void checkIfApplicantInBlacklist(int applicantIdInApplication) {
-        DataResult<GetBlacklistByIdResponse> blacklist = blacklistService.getBlacklistById(applicantIdInApplication);
-        System.out.println(blacklist);
+        DataResult<GetBlacklistByIdResponse> blacklist = blacklistManager.getBlacklistById(applicantIdInApplication);
+        //System.out.println(blacklist);
         if(blacklist.isSuccess() == true){
             throw new BusinessException("You Are In The Blacklist!");
         }

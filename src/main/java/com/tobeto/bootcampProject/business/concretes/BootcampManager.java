@@ -15,8 +15,13 @@ import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.BootcampRepository;
+import com.tobeto.bootcampProject.dataAccess.abstracts.BootcampStateRepository;
+import com.tobeto.bootcampProject.dataAccess.abstracts.InstructorRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Bootcamp;
+import com.tobeto.bootcampProject.entities.BootcampState;
+import com.tobeto.bootcampProject.entities.Instructor;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,13 +39,27 @@ public class BootcampManager implements BootcampService {
 
     private BootcampRepository bootcampRepository;
     private ModelMapperService mapperService;
+    private BootcampStateRepository bootcampStateRepository;
+    private InstructorRepository instructorRepository;
     @Override
     public DataResult<CreateBootcampResponse> createBootcamp(CreateBootcampRequest request) {
         Bootcamp bootcamp = mapperService.forRequest().map(request, Bootcamp.class);
         bootcamp.setCreatedDate(LocalDateTime.now());
+        /*BootcampState bootcampState = bootcampStateRepository.findById(request.getBootcampStateId())
+                .orElseThrow(() -> new EntityNotFoundException("BootcampState not found with id: " + request.getBootcampState_id()));
+
+
+        Instructor instructor = instructorRepository.findById(request.getInstructorId())
+                .orElseThrow(() -> new EntityNotFoundException("Instructor not found with id: " + request.getInstructor_id()));
+
+        bootcamp.setBootcampState(bootcampState);
+        bootcamp.setInstructor(instructor);
+
+         */
         bootcampRepository.save(bootcamp);
 
         CreateBootcampResponse response = mapperService.forResponse().map(bootcamp, CreateBootcampResponse.class);
+
         return new SuccessDataResult<CreateBootcampResponse>(response, "Bootcamp Created");
     }
 

@@ -13,20 +13,19 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="application")
-@PrimaryKeyJoinColumn(name = "id")
+@Table(name="applications")
 public class Application extends BaseEntity<Integer> {
 
     @ManyToOne
-    @JoinColumn(name = "applicant_id")
+    @JoinColumn(name = "applicantId")
     private Applicant applicant;
 
     @ManyToOne
-    @JoinColumn(name = "bootcamp_id")
+    @JoinColumn(name = "bootcampId")
     private Bootcamp bootcamp;
 
     @ManyToOne
-    @JoinColumn(name = "application_state_id")
+    @JoinColumn(name = "applicationStateId")
     private ApplicationState applicationState;
 
 
