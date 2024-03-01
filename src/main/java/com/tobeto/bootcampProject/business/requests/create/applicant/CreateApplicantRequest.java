@@ -11,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateApplicantRequest {
+
     @NotEmpty(message = "First name must not be empty!")
     @Size(min = 2, max = 50, message = "First name must be at least 2 characters!")
     private String firstName;
@@ -38,8 +39,6 @@ public class CreateApplicantRequest {
 
     @Size(min = 11, max = 11, message = "National identity must be exactly 11 characters.")
     private String nationalIdentity;
-
-
 
     @NotNull(message = "Date of birth must not be null.")
     @PastOrPresent(message = "Date of birth must be in the past or present.")
