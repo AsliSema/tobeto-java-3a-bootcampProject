@@ -20,7 +20,7 @@ public class ApplicantController extends BaseController{
     private ApplicantService applicantService;
 
     @PostMapping
-    public ResponseEntity<?> createApplicant(@RequestBody CreateApplicantRequest request){
+    public ResponseEntity<?> createApplicant(@RequestBody @Valid CreateApplicantRequest request){
         return handleDataResult(applicantService.createApplicant(request));
     }
 
