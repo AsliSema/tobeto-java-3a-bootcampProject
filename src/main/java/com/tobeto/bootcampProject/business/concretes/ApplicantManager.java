@@ -2,13 +2,13 @@ package com.tobeto.bootcampProject.business.concretes;
 
 import com.tobeto.bootcampProject.business.abstracts.ApplicantService;
 import com.tobeto.bootcampProject.business.abstracts.BaseService;
-import com.tobeto.bootcampProject.business.abstracts.UserService;
 import com.tobeto.bootcampProject.business.requests.create.applicant.CreateApplicantRequest;
 import com.tobeto.bootcampProject.business.requests.update.applicant.UpdateApplicantRequest;
 import com.tobeto.bootcampProject.business.responses.create.applicant.CreateApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
+import com.tobeto.bootcampProject.business.rules.BusinessRules;
 import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -18,7 +18,6 @@ import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.ApplicantRepository;
 import com.tobeto.bootcampProject.entities.Applicant;
-import com.tobeto.bootcampProject.entities.Employee;
 import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -39,7 +38,8 @@ public class ApplicantManager implements ApplicantService, BaseService {
     private ModelMapperService mapperService;
     @Override
     public DataResult<CreateApplicantResponse> createApplicant(CreateApplicantRequest request) {
-        checkIfUserExists(request.getEmail());
+        //checkIfUserExists(request.getEmail());
+        var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
         Applicant applicant = mapperService.forRequest().map(request, Applicant.class);
         applicant.setCreatedDate(LocalDateTime.now());
         applicantRepository.save(applicant);
@@ -102,10 +102,20 @@ public class ApplicantManager implements ApplicantService, BaseService {
 
 
     @Override
-    public void checkIfUserExists(String email) {
-            User applicant = applicantRepository.getByEmail(email.trim());
+    public Result checkIfUserExists(String email) {
+            User applicant = applicantRepository.findByEmail(email.trim());
             if(applicant != null){
                 throw new BusinessException("Applicant already exists!");
             }
+            return  new SuccessResult();
+    }
+
+    @Override
+    public Result isUsernameAlreadyTaken(String username) {
+        User applicant = applicantRepository.findByUserName(username.trim());
+        if(applicant != null){
+            throw new BusinessException("User name already taken!");
+        }
+        return new SuccessResult();
     }
 }

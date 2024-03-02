@@ -5,10 +5,10 @@ import com.tobeto.bootcampProject.business.abstracts.InstructorService;
 import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInstructorRequest;
 import com.tobeto.bootcampProject.business.requests.update.instructor.UpdateInstructorRequest;
 import com.tobeto.bootcampProject.business.responses.create.intructor.CreateInstructorResponse;
-import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstructorResponse;
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
+import com.tobeto.bootcampProject.business.rules.BusinessRules;
 import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -17,10 +17,9 @@ import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.InstructorRepository;
-import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Instructor;
+import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +38,8 @@ public class InstructorManager implements InstructorService, BaseService {
     private ModelMapperService mapperService;
     @Override
     public DataResult<CreateInstructorResponse> createInstructor(CreateInstructorRequest request) {
-        checkIfUserExists(request.getEmail());
+        //checkIfUserExists(request.getEmail());
+        var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
         Instructor instructor = mapperService.forRequest().map(request, Instructor.class);
         instructor.setCreatedDate(LocalDateTime.now());
         instructorRepository.save(instructor);
@@ -101,10 +101,20 @@ public class InstructorManager implements InstructorService, BaseService {
 
 
     @Override
-    public void checkIfUserExists(String email) {
-        Instructor instructor = instructorRepository.getByEmail(email.trim());
+    public Result checkIfUserExists(String email) {
+        Instructor instructor = instructorRepository.findByEmail(email.trim());
         if(instructor != null){
             throw new BusinessException("Employee already exists!");
         }
+        return  new SuccessResult();
+    }
+
+    @Override
+    public Result isUsernameAlreadyTaken(String username) {
+        User instructor = instructorRepository.findByUserName(username.trim());
+        if(instructor != null){
+            throw new BusinessException("User name already taken!");
+        }
+        return new SuccessResult();
     }
 }

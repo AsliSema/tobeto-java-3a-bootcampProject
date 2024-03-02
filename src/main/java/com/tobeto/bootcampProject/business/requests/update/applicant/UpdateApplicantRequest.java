@@ -25,8 +25,6 @@ public class UpdateApplicantRequest {
     @Email(message = "Invalid email address!")
     private String email;
 
-    @NotEmpty(message = "Password must not be empty!")
-    @Size(min = 2, max = 50, message = "First name must be at least 2 characters!")
 
     @NotEmpty(message = "Password must not be empty!")
     @Size(min = 5, max = 30, message = "Password must be between 5 and 25 characters!")

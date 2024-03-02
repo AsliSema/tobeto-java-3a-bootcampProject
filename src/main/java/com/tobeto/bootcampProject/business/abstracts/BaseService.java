@@ -1,5 +1,9 @@
 package com.tobeto.bootcampProject.business.abstracts;
 
+import com.tobeto.bootcampProject.core.utilities.results.Result;
+
 public interface BaseService {
-    void checkIfUserExists(String email);
+    Result checkIfUserExists(String email);
+
+    Result isUsernameAlreadyTaken(String username);
 }
