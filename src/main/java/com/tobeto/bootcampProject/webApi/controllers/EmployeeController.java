@@ -4,6 +4,7 @@ import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class EmployeeController extends BaseController{
     private EmployeeService employeeService;
 
     @PostMapping
-    public ResponseEntity<?> createEmployee(@RequestBody CreateEmployeeRequest request){
+    public ResponseEntity<?> createEmployee(@RequestBody @Valid CreateEmployeeRequest request){
         return handleDataResult(employeeService.createEmployee(request));
     }
 
@@ -32,7 +33,7 @@ public class EmployeeController extends BaseController{
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateEmployee(@RequestBody UpdateEmployeeRequest request,@PathVariable int id){
+    public ResponseEntity<?> updateEmployee(@RequestBody @Valid UpdateEmployeeRequest request,@PathVariable int id){
         return handleDataResult(employeeService.updateEmployee(request, id));
     }
 

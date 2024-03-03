@@ -6,6 +6,7 @@ import com.tobeto.bootcampProject.business.requests.create.application.CreateApp
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class ApplicationController extends BaseController{
     private ApplicationService applicationService;
 
     @PostMapping
-    public ResponseEntity<?> createApplication(@RequestBody CreateApplicationRequest request){
+    public ResponseEntity<?> createApplication(@RequestBody @Valid CreateApplicationRequest request){
         return handleDataResult(applicationService.createApplication(request));
     }
 
@@ -33,7 +34,7 @@ public class ApplicationController extends BaseController{
     }
 
     @PutMapping
-    public ResponseEntity<?> updateApplication(UpdateApplicationRequest request){
+    public ResponseEntity<?> updateApplication(@RequestBody @Valid UpdateApplicationRequest request){
         return handleDataResult(applicationService.updateApplication(request));
     }
 

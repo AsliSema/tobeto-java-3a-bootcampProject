@@ -4,6 +4,7 @@ import com.tobeto.bootcampProject.business.abstracts.ApplicationStateService;
 import com.tobeto.bootcampProject.business.requests.create.applicationState.CreateApplicationStateRequest;
 import com.tobeto.bootcampProject.business.requests.update.applicationState.UpdateApplicationStateRequest;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class ApplicationStateController extends BaseController{
 
     private ApplicationStateService applicationStateService;
     @PostMapping
-    public ResponseEntity<?> createApplicationState(@RequestBody CreateApplicationStateRequest request){
+    public ResponseEntity<?> createApplicationState(@RequestBody @Valid CreateApplicationStateRequest request){
         return handleDataResult(applicationStateService.createApplicationState(request));
     }
 
@@ -30,7 +31,7 @@ public class ApplicationStateController extends BaseController{
     }
 
     @PutMapping
-    public ResponseEntity<?> updateApplicationState(@RequestBody UpdateApplicationStateRequest request){
+    public ResponseEntity<?> updateApplicationState(@RequestBody @Valid UpdateApplicationStateRequest request){
         return handleDataResult(applicationStateService.updateApplicationState(request));
     }
 

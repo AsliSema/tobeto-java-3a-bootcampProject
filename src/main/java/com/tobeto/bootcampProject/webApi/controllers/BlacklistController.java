@@ -6,6 +6,7 @@ import com.tobeto.bootcampProject.business.requests.create.blacklist.CreateBlack
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
 import com.tobeto.bootcampProject.business.requests.update.blacklist.UpdateBlacklistRequest;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class BlacklistController extends BaseController{
     private BlacklistService blacklistService;
 
     @PostMapping
-    public ResponseEntity<?> createBlacklist(@RequestBody CreateBlacklistRequest request){
+    public ResponseEntity<?> createBlacklist(@RequestBody @Valid CreateBlacklistRequest request){
         return handleDataResult(blacklistService.createBlacklist(request));
     }
 
@@ -32,7 +33,7 @@ public class BlacklistController extends BaseController{
     }
 
     @PutMapping
-    public ResponseEntity<?> updateBlacklist(UpdateBlacklistRequest request){
+    public ResponseEntity<?> updateBlacklist(@RequestBody @Valid UpdateBlacklistRequest request){
         return handleDataResult(blacklistService.updateBlacklist(request));
     }
 

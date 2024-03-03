@@ -6,6 +6,7 @@ import com.tobeto.bootcampProject.business.requests.create.bootcampState.CreateB
 import com.tobeto.bootcampProject.business.requests.update.application.UpdateApplicationRequest;
 import com.tobeto.bootcampProject.business.requests.update.bootcampState.UpdateBootcampStateRequest;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class BootcampStateController extends BaseController{
 
     private BootcampStateService bootcampStateService;
     @PostMapping
-    public ResponseEntity<?> createBootcampState(@RequestBody CreateBootcampStateRequest request){
+    public ResponseEntity<?> createBootcampState(@RequestBody @Valid CreateBootcampStateRequest request){
         return handleDataResult(bootcampStateService.createBootcampState(request));
     }
 
@@ -32,7 +33,7 @@ public class BootcampStateController extends BaseController{
     }
 
     @PutMapping
-    public ResponseEntity<?> updateBootcampState(UpdateBootcampStateRequest request){
+    public ResponseEntity<?> updateBootcampState(@RequestBody @Valid UpdateBootcampStateRequest request){
         return handleDataResult(bootcampStateService.updateBootcampState(request));
     }
 

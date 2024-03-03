@@ -35,7 +35,7 @@ public class ApplicantController extends BaseController{
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateApplicant(@RequestBody UpdateApplicantRequest request, @PathVariable int id){
+    public ResponseEntity<?> updateApplicant(@RequestBody @Valid UpdateApplicantRequest request, @PathVariable int id){
         return handleDataResult(applicantService.updateApplicantById(request, id));
     }
 
