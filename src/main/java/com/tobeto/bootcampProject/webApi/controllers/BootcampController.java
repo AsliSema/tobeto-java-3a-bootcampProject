@@ -40,7 +40,7 @@ public class BootcampController extends BaseController{
         return handleDataResult(bootcampService.getAllSorted(pageDto));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBootcamp(@PathVariable int id){
         return handleResult(bootcampService.deleteBootcamp(id));
     }
