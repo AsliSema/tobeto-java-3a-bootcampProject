@@ -8,6 +8,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetAllBootcampsResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetBootcampByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.bootcamp.UpdateBootcampResponse;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -42,20 +43,10 @@ public class BootcampManager implements BootcampService {
     private BootcampStateRepository bootcampStateRepository;
     private InstructorRepository instructorRepository;
     @Override
+    @Loggable
     public DataResult<CreateBootcampResponse> createBootcamp(CreateBootcampRequest request) {
         Bootcamp bootcamp = mapperService.forRequest().map(request, Bootcamp.class);
         bootcamp.setCreatedDate(LocalDateTime.now());
-        /*BootcampState bootcampState = bootcampStateRepository.findById(request.getBootcampStateId())
-                .orElseThrow(() -> new EntityNotFoundException("BootcampState not found with id: " + request.getBootcampState_id()));
-
-
-        Instructor instructor = instructorRepository.findById(request.getInstructorId())
-                .orElseThrow(() -> new EntityNotFoundException("Instructor not found with id: " + request.getInstructor_id()));
-
-        bootcamp.setBootcampState(bootcampState);
-        bootcamp.setInstructor(instructor);
-
-         */
         bootcampRepository.save(bootcamp);
 
         CreateBootcampResponse response = mapperService.forResponse().map(bootcamp, CreateBootcampResponse.class);
@@ -82,6 +73,7 @@ public class BootcampManager implements BootcampService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateBootcampResponse> updateBootcamp(UpdateBootcampRequest request) {
         Bootcamp bootcamp = mapperService.forRequest().map(request, Bootcamp.class);
         Bootcamp updatedBootcamp = bootcampRepository.save(bootcamp);
@@ -104,6 +96,7 @@ public class BootcampManager implements BootcampService {
     }
 
     @Override
+    @Loggable
     public Result deleteBootcamp(int id) {
         bootcampRepository.deleteById(id);
         return new SuccessResult("Bootcamp Deleted");

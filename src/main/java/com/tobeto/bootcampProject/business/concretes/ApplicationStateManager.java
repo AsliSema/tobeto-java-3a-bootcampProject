@@ -8,6 +8,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.applicationState.GetAllApplicationStatesResponse;
 import com.tobeto.bootcampProject.business.responses.get.applicationState.GetApplicationStateByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicationState.UpdateApplicationStateResponse;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -35,6 +36,7 @@ public class ApplicationStateManager implements ApplicationStateService {
     private ApplicationStateRepository applicationStateRepository;
     private ModelMapperService mapperService;
     @Override
+    @Loggable
     public DataResult<CreateApplicationStateResponse> createApplicationState(CreateApplicationStateRequest request) {
         ApplicationState applicationState = mapperService.forRequest().map(request, ApplicationState.class);
         System.out.println(applicationState);
@@ -65,6 +67,7 @@ public class ApplicationStateManager implements ApplicationStateService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateApplicationStateResponse> updateApplicationState(UpdateApplicationStateRequest request) {
         ApplicationState applicationState = mapperService.forRequest().map(request, ApplicationState.class);
         ApplicationState updatedApplicationState = applicationStateRepository.save(applicationState);
@@ -85,6 +88,7 @@ public class ApplicationStateManager implements ApplicationStateService {
     }
 
     @Override
+    @Loggable
     public Result deleteApplicationState(int id) {
         applicationStateRepository.deleteById(id);
         return new SuccessResult("Application State Deleted");

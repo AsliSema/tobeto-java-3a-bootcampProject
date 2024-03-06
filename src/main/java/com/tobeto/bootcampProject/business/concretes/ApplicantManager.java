@@ -9,6 +9,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.applicant.GetApplicantByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.applicant.UpdateApplicantResponse;
 import com.tobeto.bootcampProject.business.rules.BusinessRules;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -37,6 +38,7 @@ public class ApplicantManager implements ApplicantService, BaseService {
     private ApplicantRepository applicantRepository;
     private ModelMapperService mapperService;
     @Override
+    @Loggable
     public DataResult<CreateApplicantResponse> createApplicant(CreateApplicantRequest request) {
         //checkIfUserExists(request.getEmail());
         var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
@@ -64,6 +66,7 @@ public class ApplicantManager implements ApplicantService, BaseService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateApplicantResponse> updateApplicantById(UpdateApplicantRequest request, int id) {
         Applicant applicant = applicantRepository.findById(id).orElseThrow();
 
@@ -95,6 +98,7 @@ public class ApplicantManager implements ApplicantService, BaseService {
     }
 
     @Override
+    @Loggable
     public Result deleteApplicantById(int id) {
         applicantRepository.deleteById(id);
         return new SuccessResult("Applicant Deleted!");

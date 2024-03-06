@@ -10,6 +10,7 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByI
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampProject.business.rules.BusinessRules;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -39,6 +40,7 @@ public class EmployeeManager implements EmployeeService, BaseService {
     private ModelMapperService mapperService;
 
     @Override
+    @Loggable
     public DataResult<CreateEmployeeResponse> createEmployee(CreateEmployeeRequest request) {
         //checkIfUserExists(request.getEmail());
         var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
@@ -66,6 +68,7 @@ public class EmployeeManager implements EmployeeService, BaseService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateEmployeeResponse> updateEmployee(UpdateEmployeeRequest request, int id) {
         Employee employee = employeeRepository.findById(id).orElseThrow();
 
@@ -108,6 +111,7 @@ public class EmployeeManager implements EmployeeService, BaseService {
     }
 
     @Override
+    @Loggable
     public Result deleteEmployeeById(int id) {
         employeeRepository.deleteById(id);
         return new SuccessResult("Employee Deleted!");

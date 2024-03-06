@@ -9,6 +9,7 @@ import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstru
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
 import com.tobeto.bootcampProject.business.rules.BusinessRules;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -37,6 +38,7 @@ public class InstructorManager implements InstructorService, BaseService {
     private InstructorRepository instructorRepository;
     private ModelMapperService mapperService;
     @Override
+    @Loggable
     public DataResult<CreateInstructorResponse> createInstructor(CreateInstructorRequest request) {
         //checkIfUserExists(request.getEmail());
         var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
@@ -63,6 +65,7 @@ public class InstructorManager implements InstructorService, BaseService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateInstructorResponse> updateInstructorById(UpdateInstructorRequest request, int id) {
         Instructor instructor = instructorRepository.findById(id).orElseThrow();
 
@@ -94,6 +97,7 @@ public class InstructorManager implements InstructorService, BaseService {
     }
 
     @Override
+    @Loggable
     public Result deleteInstructorById(int id) {
         instructorRepository.deleteById(id);
         return new SuccessResult("Instructor Deleted!");

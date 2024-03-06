@@ -10,6 +10,7 @@ import com.tobeto.bootcampProject.business.responses.get.application.GetAllAppli
 import com.tobeto.bootcampProject.business.responses.get.application.GetApplicationByIdResponse;
 import com.tobeto.bootcampProject.business.responses.get.blacklist.GetBlacklistByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.application.UpdateApplicationResponse;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -44,6 +45,7 @@ public class ApplicationManager implements ApplicationService {
     private BlacklistManager blacklistManager;
 
     @Override
+    @Loggable
     public DataResult<CreateApplicationResponse> createApplication(CreateApplicationRequest request) {
         System.out.println(request.getApplicantId());
         //checkIfApplicantInBlacklist(request.getApplicantId());
@@ -77,6 +79,7 @@ public class ApplicationManager implements ApplicationService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateApplicationResponse> updateApplication(UpdateApplicationRequest request) {
         Application application = mapperService.forRequest().map(request, Application.class);
         Application updatedApplication = applicationRepository.save(application);
@@ -98,6 +101,7 @@ public class ApplicationManager implements ApplicationService {
 
 
     @Override
+    @Loggable
     public Result deleteApplication(int id) {
         applicationRepository.deleteById(id);
         return new SuccessResult("Application Deleted");

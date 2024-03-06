@@ -8,6 +8,7 @@ import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplica
 import com.tobeto.bootcampProject.business.responses.get.bootcampState.GetAllBootcampStatesResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcampState.GetBootcampStateById;
 import com.tobeto.bootcampProject.business.responses.update.bootcampState.UpdateBootcampStateResponse;
+import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -35,6 +36,7 @@ public class BootcampStateManager implements BootcampStateService {
     private BootcampStateRepository bootcampStateRepository;
     private ModelMapperService mapperService;
     @Override
+    @Loggable
     public DataResult<CreateBootcampStateResponse> createBootcampState(CreateBootcampStateRequest request) {
         BootcampState bootcampState = mapperService.forRequest().map(request, BootcampState.class);
         System.out.println(bootcampState);
@@ -66,6 +68,7 @@ public class BootcampStateManager implements BootcampStateService {
     }
 
     @Override
+    @Loggable
     public DataResult<UpdateBootcampStateResponse> updateBootcampState(UpdateBootcampStateRequest request) {
         BootcampState bootcampState = mapperService.forRequest().map(request, BootcampState.class);
         BootcampState updatedBootcampState = bootcampStateRepository.save(bootcampState);
@@ -87,6 +90,7 @@ public class BootcampStateManager implements BootcampStateService {
     }
 
     @Override
+    @Loggable
     public Result deleteBootcampState(int id) {
         bootcampStateRepository.deleteById(id);
         return new SuccessResult("Bootcamp State Deleted");
