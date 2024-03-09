@@ -1,6 +1,5 @@
 package com.tobeto.bootcampProject.business.concretes;
 
-import com.tobeto.bootcampProject.business.abstracts.BaseService;
 import com.tobeto.bootcampProject.business.abstracts.EmployeeService;
 import com.tobeto.bootcampProject.business.requests.create.employee.CreateEmployeeRequest;
 import com.tobeto.bootcampProject.business.requests.update.employee.UpdateEmployeeRequest;
@@ -10,8 +9,8 @@ import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByI
 import com.tobeto.bootcampProject.business.responses.get.employee.GetEmployeeByPositionResponse;
 import com.tobeto.bootcampProject.business.responses.update.employee.UpdateEmployeeResponse;
 import com.tobeto.bootcampProject.business.rules.BusinessRules;
+import com.tobeto.bootcampProject.business.rules.UserBusinessRules;
 import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
-import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -20,7 +19,6 @@ import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.EmployeeRepository;
 import com.tobeto.bootcampProject.entities.Employee;
-import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -34,16 +32,19 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class EmployeeManager implements EmployeeService, BaseService {
+public class EmployeeManager implements EmployeeService{
 
     private EmployeeRepository employeeRepository;
     private ModelMapperService mapperService;
+    private UserBusinessRules userBusinessRules;
 
     @Override
     @Loggable
     public DataResult<CreateEmployeeResponse> createEmployee(CreateEmployeeRequest request) {
         //checkIfUserExists(request.getEmail());
-        var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
+
+        var result = BusinessRules.run(userBusinessRules.checkIfUserExists(request.getEmail()), userBusinessRules.isUsernameAlreadyTaken(request.getUserName()));
+
         Employee employee = mapperService.forRequest().map(request, Employee.class);
         employee.setCreatedDate(LocalDateTime.now());
         employeeRepository.save(employee);
@@ -117,22 +118,4 @@ public class EmployeeManager implements EmployeeService, BaseService {
         return new SuccessResult("Employee Deleted!");
     }
 
-
-    @Override
-    public Result checkIfUserExists(String email) {
-        Employee employee = employeeRepository.findByEmail(email.trim());
-        if(employee != null){
-            throw new BusinessException("Employee already exists!");
-        }
-        return  new SuccessResult();
-    }
-
-    @Override
-    public Result isUsernameAlreadyTaken(String username) {
-        User employee = employeeRepository.findByUserName(username.trim());
-        if(employee != null){
-            throw new BusinessException("User name already taken!");
-        }
-        return new SuccessResult();
-    }
 }
