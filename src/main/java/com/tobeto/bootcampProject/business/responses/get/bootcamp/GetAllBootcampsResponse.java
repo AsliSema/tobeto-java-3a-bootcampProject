@@ -17,5 +17,8 @@ public class GetAllBootcampsResponse {
     private  LocalDateTime endDate;
     private int bootcampStateId;
     private String instructorCompanyName;
-    private String instructorName;
+    private String instructorFirstName;
+    private String instructorLastName;
+    private String instructorUserName;
+
 }

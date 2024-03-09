@@ -20,7 +20,7 @@ import java.util.List;
 public interface BlacklistService {
     DataResult<CreateBlacklistResponse> createBlacklist(CreateBlacklistRequest request);
 
-    DataResult<List<GetAllBlacklistResponse>> getAllBlacklist();
+    DataResult<GetAllBlacklistResponse> getAllBlacklist();
 
     DataResult<GetBlacklistByIdResponse> getBlacklistById(int id);
 

@@ -13,4 +13,8 @@ public class GetAllApplicationsResponse {
     private int applicantId;
     private int bootcampId;
     private int applicationStateId;
+    private String bootcampName;
+    private String applicantFirstName;
+    private String applicantLastName;
+    private String applicantUserName;
 }

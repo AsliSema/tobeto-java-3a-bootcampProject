@@ -16,6 +16,7 @@ import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.BlacklistRepository;
 import com.tobeto.bootcampProject.entities.Blacklist;
+import com.tobeto.bootcampProject.entities.Bootcamp;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,7 +48,7 @@ public class BlacklistManager implements BlacklistService {
     }
 
     @Override
-    public DataResult<List<GetAllBlacklistResponse>> getAllBlacklist() {
+    public DataResult<GetAllBlacklistResponse> getAllBlacklist() {
         List <Blacklist> blacklists = blacklistRepository.findAll();
         List <GetAllBlacklistResponse> response = blacklists.stream().map(blacklist -> mapperService.
                 forResponse().map(blacklist, GetAllBlacklistResponse.class)).collect(Collectors.toList());
