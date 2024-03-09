@@ -4,10 +4,11 @@ import com.tobeto.bootcampProject.business.abstracts.BootcampService;
 import com.tobeto.bootcampProject.business.requests.create.bootcamp.CreateBootcampRequest;
 import com.tobeto.bootcampProject.business.requests.update.bootcamp.UpdateBootcampRequest;
 import com.tobeto.bootcampProject.business.responses.create.bootcamp.CreateBootcampResponse;
-import com.tobeto.bootcampProject.business.responses.get.applicant.GetAllApplicantResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetAllBootcampsResponse;
 import com.tobeto.bootcampProject.business.responses.get.bootcamp.GetBootcampByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.bootcamp.UpdateBootcampResponse;
+import com.tobeto.bootcampProject.business.rules.BootcampBusinessRules;
+import com.tobeto.bootcampProject.business.rules.BusinessRules;
 import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
@@ -16,13 +17,7 @@ import com.tobeto.bootcampProject.core.utilities.results.Result;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.BootcampRepository;
-import com.tobeto.bootcampProject.dataAccess.abstracts.BootcampStateRepository;
-import com.tobeto.bootcampProject.dataAccess.abstracts.InstructorRepository;
-import com.tobeto.bootcampProject.entities.Applicant;
 import com.tobeto.bootcampProject.entities.Bootcamp;
-import com.tobeto.bootcampProject.entities.BootcampState;
-import com.tobeto.bootcampProject.entities.Instructor;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,11 +35,13 @@ public class BootcampManager implements BootcampService {
 
     private BootcampRepository bootcampRepository;
     private ModelMapperService mapperService;
-    private BootcampStateRepository bootcampStateRepository;
-    private InstructorRepository instructorRepository;
+    private BootcampBusinessRules bootcampBusinessRules;
     @Override
     @Loggable
     public DataResult<CreateBootcampResponse> createBootcamp(CreateBootcampRequest request) {
+
+        var result = BusinessRules.run(bootcampBusinessRules.checkIfInstructorExists(request.getInstructorId()), bootcampBusinessRules.checkIfBootcampStateExists(request.getBootcampStateId()));
+
         Bootcamp bootcamp = mapperService.forRequest().map(request, Bootcamp.class);
         bootcamp.setCreatedDate(LocalDateTime.now());
         bootcampRepository.save(bootcamp);

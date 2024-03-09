@@ -60,7 +60,7 @@ public class BootcampStateManager implements BootcampStateService {
 
     @Override
     public DataResult<GetBootcampStateById> getBootcampState(int id) {
-        BootcampState bootcampState = bootcampStateRepository.findById(id).orElseThrow();
+        BootcampState bootcampState = bootcampStateRepository.findById(id);
 
         GetBootcampStateById response = mapperService.forResponse().map(bootcampState, GetBootcampStateById.class);
         return new SuccessDataResult<GetBootcampStateById>(response, "Bootcamp State Listed");
