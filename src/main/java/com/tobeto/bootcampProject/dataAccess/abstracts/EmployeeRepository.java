@@ -10,7 +10,4 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     List<Employee> findAllByPosition(@Param("position") String position);
 
-    Employee findByEmail(String email);
-
-    Employee findByUserName(String username);
 }

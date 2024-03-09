@@ -1,6 +1,5 @@
 package com.tobeto.bootcampProject.business.concretes;
 
-import com.tobeto.bootcampProject.business.abstracts.BaseService;
 import com.tobeto.bootcampProject.business.abstracts.InstructorService;
 import com.tobeto.bootcampProject.business.requests.create.instructor.CreateInstructorRequest;
 import com.tobeto.bootcampProject.business.requests.update.instructor.UpdateInstructorRequest;
@@ -9,8 +8,8 @@ import com.tobeto.bootcampProject.business.responses.get.instructor.GetAllInstru
 import com.tobeto.bootcampProject.business.responses.get.instructor.GetInstructorByIdResponse;
 import com.tobeto.bootcampProject.business.responses.update.instructor.UpdateInstructorResponse;
 import com.tobeto.bootcampProject.business.rules.BusinessRules;
+import com.tobeto.bootcampProject.business.rules.UserBusinessRules;
 import com.tobeto.bootcampProject.core.aspects.logging.Loggable;
-import com.tobeto.bootcampProject.core.exceptions.types.BusinessException;
 import com.tobeto.bootcampProject.core.utilities.mapping.ModelMapperService;
 import com.tobeto.bootcampProject.core.utilities.paging.PageDto;
 import com.tobeto.bootcampProject.core.utilities.results.DataResult;
@@ -19,7 +18,6 @@ import com.tobeto.bootcampProject.core.utilities.results.SuccessDataResult;
 import com.tobeto.bootcampProject.core.utilities.results.SuccessResult;
 import com.tobeto.bootcampProject.dataAccess.abstracts.InstructorRepository;
 import com.tobeto.bootcampProject.entities.Instructor;
-import com.tobeto.bootcampProject.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,15 +31,17 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class InstructorManager implements InstructorService, BaseService {
+public class InstructorManager implements InstructorService{
 
     private InstructorRepository instructorRepository;
     private ModelMapperService mapperService;
+    private UserBusinessRules userBusinessRules;
     @Override
     @Loggable
     public DataResult<CreateInstructorResponse> createInstructor(CreateInstructorRequest request) {
-        //checkIfUserExists(request.getEmail());
-        var result = BusinessRules.run(checkIfUserExists(request.getEmail()), isUsernameAlreadyTaken(request.getUserName()));
+
+        var result = BusinessRules.run(userBusinessRules.checkIfUserExists(request.getEmail()), userBusinessRules.isUsernameAlreadyTaken(request.getUserName()));
+
         Instructor instructor = mapperService.forRequest().map(request, Instructor.class);
         instructor.setCreatedDate(LocalDateTime.now());
         instructorRepository.save(instructor);
@@ -103,22 +103,4 @@ public class InstructorManager implements InstructorService, BaseService {
         return new SuccessResult("Instructor Deleted!");
     }
 
-
-    @Override
-    public Result checkIfUserExists(String email) {
-        Instructor instructor = instructorRepository.findByEmail(email.trim());
-        if(instructor != null){
-            throw new BusinessException("Employee already exists!");
-        }
-        return  new SuccessResult();
-    }
-
-    @Override
-    public Result isUsernameAlreadyTaken(String username) {
-        User instructor = instructorRepository.findByUserName(username.trim());
-        if(instructor != null){
-            throw new BusinessException("User name already taken!");
-        }
-        return new SuccessResult();
-    }
 }
