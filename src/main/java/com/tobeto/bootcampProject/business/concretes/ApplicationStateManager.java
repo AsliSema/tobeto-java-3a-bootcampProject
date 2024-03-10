@@ -60,7 +60,7 @@ public class ApplicationStateManager implements ApplicationStateService {
 
     @Override
     public DataResult<GetApplicationStateByIdResponse> getApplicationState(int id) {
-        ApplicationState applicationState = applicationStateRepository.findById(id).orElseThrow();
+        ApplicationState applicationState = applicationStateRepository.findById(id);
         GetApplicationStateByIdResponse response = mapperService.forResponse().map(applicationState, GetApplicationStateByIdResponse.class);
         return new SuccessDataResult<GetApplicationStateByIdResponse>(response, "Application State Listed");
 

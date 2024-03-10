@@ -64,7 +64,7 @@ public class BootcampManager implements BootcampService {
 
     @Override
     public DataResult<GetBootcampByIdResponse> getbootcamp(int id) {
-        Bootcamp bootcamp = bootcampRepository.findById(id).orElseThrow();
+        Bootcamp bootcamp = bootcampRepository.findById(id);
         GetBootcampByIdResponse response = mapperService.forResponse().map(bootcamp, GetBootcampByIdResponse.class);
         return new SuccessDataResult<GetBootcampByIdResponse>(response, "Bootcamp Listed");
     }
