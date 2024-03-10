@@ -20,6 +20,4 @@ public class CreateBootcampResponse {
     private LocalDateTime startDate;
     private  LocalDateTime endDate;
     private int bootcampStateId;
-    private String instructorCompanyName;
-    private String instructorFirstName;
 }
